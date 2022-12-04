@@ -48,7 +48,10 @@ extension Uint8ListExtensions on Uint8List {
     return null;
   }
 
+  /// Return the Hex String representation for the current Uint8List
   String get toHex => HEX.encode(this);
+
+  /// Return the Base58 String representation for the current Uint8List
   String get toBase58 => Base58Encode(this);
 }
 
@@ -74,4 +77,6 @@ extension BtcUtil on int {
     result.buffer.asByteData().setUint64(0, this, endian);
     return result;
   }
+
+  String get toHex => HEX.encode(Uint(this).toUint8List);
 }

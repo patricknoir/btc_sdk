@@ -8,7 +8,8 @@ The Bytes Array plays a key role in any blockchain application, as wallet and tr
 In the following sections we will cover the key topics:
 
 1. Basic Types: bit, Bytes and int
-2. Bytes Array and Encoding
+2. Bytes Array and Encodings
+3. Transaction Types
 
 ### Basic Types: bit, Bytes and int
 
@@ -48,3 +49,25 @@ In general the integer type is classified in 4 subtypes:
 All the Uint types are Array of Bytes which in Darts are identified by the type: *Uint8List*.
 A Uint8List contains a ordered list of uint8 types and is the most important type used for raw Array Bytes manipulation.
 
+### Bytes Array and Encodings
+
+### Transaction Types
+
+#### VarInt
+A VarInt (variable integer) is a field used in transaction data to indicate the number of upcoming fields, or the length of an upcoming field.
+
+A VarInt is most commonly a 1 byte hexadecimal value:
+```bash
+                 0x6a = 106 bytes
+--|------------------------------------- ... --|
+6a47304402200aa5891780e216bf1941b502de29 ... 926
+```
+
+However, if the VarInt is going to be greater than 0xfc (so the number you’re trying to express won’t fit inside of two hexadecimal characters) then you can expand the field in the following way:
+
+| Size                  | 	Example	(Hex)     | Description                                                             |
+|-----------------------|--------------------|-------------------------------------------------------------------------|
+| <= 0xfc	              | 12                 |                                                                         |
+| <= 0xffff             | fd1234             | 	Prefix with fd, and the next 2 bytes is the VarInt (in little-endian). |
+| <= 0xffffffff         | fe12345678         | 	Prefix with fe, and the next 4 bytes is the VarInt (in little-endian). |
+| <= 0xffffffffffffffff | ff1234567890abcdef | 	Prefix with ff, and the next 8 bytes is the VarInt (in little-endian). |
