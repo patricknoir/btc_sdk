@@ -1,5 +1,5 @@
 import 'package:btc_sdk/src/btc_sdk_base.dart';
-import 'package:btc_sdk/src/model/var_int.dart';
+import 'package:btc_sdk/src/model/binary/var_int.dart';
 import 'package:test/test.dart';
 
 void main() {

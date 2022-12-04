@@ -5,12 +5,7 @@ import 'dart:typed_data';
 import 'package:fast_base58/fast_base58.dart';
 import 'package:hex/hex.dart';
 
-import 'model/uint.dart';
-
-/// Checks if you are awesome. Spoiler: you are.
-class Awesome {
-  bool get isAwesome => true;
-}
+import 'model/binary/uint.dart';
 
 extension StringExtensions on String {
   Uint8List? get fromHex {
@@ -30,7 +25,7 @@ extension StringExtensions on String {
   }
 }
 
-extension ListIntConvertible on List<int> {
+extension ListIntExtensions on List<int> {
   Uint8List get toUint8List => Uint8List.fromList(this);
 }
 
@@ -56,27 +51,35 @@ extension Uint8ListExtensions on Uint8List {
 }
 
 /// Utility extension for int to convert into Uint8List with different Endian options.
-extension BtcUtil on int {
+extension IntExtensions on int {
+  /// Convert an integer value into a Uint8List. If the value is bigger than uint8 the most significant bits are be truncated.
   Uint8List to8Bits() {
     final Uint8List result = Uint8List(1);
     result.buffer.asByteData().setUint8(0, this);
     return result;
   }
+
+  /// Convert an integer value into a Uint8List. If the value is bigger than uint16 the most significant bits are be truncated.
   Uint8List to16Bits({Endian endian = Endian.little}) {
     final Uint8List result = Uint8List(2);
     result.buffer.asByteData().setUint16(0, this, endian);
     return result;
   }
+
+  /// Convert an integer value into a Uint8List. If the value is bigger than uint32 the most significant bits are be truncated.
   Uint8List to32Bits({Endian endian = Endian.little}) {
     final Uint8List result = Uint8List(4);
     result.buffer.asByteData().setUint32(0, this, endian);
     return result;
   }
+
+  /// Convert an integer value into a Uint8List.
   Uint8List to64Bits({Endian endian = Endian.little}) {
     final Uint8List result = Uint8List(8);
     result.buffer.asByteData().setUint64(0, this, endian);
     return result;
   }
 
+  /// Return the Hex String representation for this int value.
   String get toHex => HEX.encode(Uint(this).toUint8List);
 }

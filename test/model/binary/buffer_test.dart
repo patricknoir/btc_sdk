@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/buffer.dart';
-import 'package:btc_sdk/src/model/uint.dart';
-import 'package:btc_sdk/src/model/var_int.dart';
+import 'package:btc_sdk/src/model/binary/buffer.dart';
+import 'package:btc_sdk/src/model/binary/uint.dart';
+import 'package:btc_sdk/src/model/binary/var_int.dart';
 import 'package:test/test.dart';
 
 void main() {

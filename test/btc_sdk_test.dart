@@ -3,25 +3,11 @@ import 'dart:typed_data';
 import 'package:bip32/bip32.dart';
 import 'package:btc_sdk/btc_sdk.dart';
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:btc_sdk/src/model/uint.dart';
+import 'package:btc_sdk/src/model/binary/uint.dart';
 import 'package:fast_base58/fast_base58.dart';
-import 'package:hex/hex.dart';
 import 'package:test/test.dart';
-import 'package:btc_sdk/btc_sdk.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
-  });
-
   group('btc_sdk tests', ()
   {
 
@@ -58,20 +44,18 @@ void main() {
       expect(l4, [128, 64, 33]);
 
       final l0 = Uint8List(0);
-      final l16 = l0?.appendInt(Uint.minUint16Value);
+      final l16 = l0.appendInt(Uint.minUint16Value);
       expect(l16, [1, 0]);
       expect(l16?.toHex, '0100');
-      final l32 = l0?.appendInt(Uint.minUint32Value);
+      final l32 = l0.appendInt(Uint.minUint32Value);
       expect(l32, [0, 1, 0, 0]);
       expect(l32?.toHex, '00010000');
-      final l64 = l0?.appendInt(Uint.minUint64Value);
+      final l64 = l0.appendInt(Uint.minUint64Value);
       expect(l64, [0, 0, 0, 1, 0, 0, 0, 0]);
       expect(l64?.toHex, '0000000100000000');
     });
 
     test('base58 test', () {
-      final Uint8List data = [124, 8, 234, 156].toUint8List;
-      final base58Data = Base58Encode(data.toList(growable: false));
       expect(Base58Encode([0]), '1', reason: 'In Base58 the digit 0 is suppressed not to be confused with the capital O. Hence the value 0 is represented by the digit 1.');
       expect(Base58Encode([57]), 'z');
       expect(Base58Decode('3yQ').toUint8List.buffer.asByteData().getUint16(0), 9999);
