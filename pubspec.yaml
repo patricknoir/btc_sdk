@@ -16,6 +16,9 @@ dev_dependencies:
 dependencies:
   bip32: ^2.0.0
   bip39: ^1.0.6
+  crypto: ^3.0.2
+  elliptic: ^0.3.8
   equatable: ^2.0.5
   fast_base58: ^0.2.1
   hex: ^0.2.0
+  pointycastle: ^3.6.2

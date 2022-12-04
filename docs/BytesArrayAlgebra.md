@@ -51,7 +51,72 @@ A Uint8List contains a ordered list of uint8 types and is the most important typ
 
 ### Bytes Array and Encodings
 
+#### Hex Representation
+
+#### Base58 Representation
+
 ### Transaction Types
+
+In bitcoin wallet and transactions all the data types are array.
+
+#### Base58 in Bitcoin
+Base58 is used in bitcoin when you want to convert commonly used data in to an easier-to-share format. For example:
+
+- WIF Private Keys
+  A private key is like a “master password”, and you can use it when you want to import bitcoins in to a new wallet. For this occasion, there is such a thing as a WIF Private Key, which is basically a private key in base58.
+- Addresses
+  A public key is the “public” counterpart to a private key, and you use them when you want to send bitcoins to someone, so it’s expected that you’re going to type one out from time to time. However, public keys are quite lengthy, so we convert them to Addresses instead, which makes use of base58 in the final step of the conversion.
+
+> We convert every zero byte (0x00) at the start of a hexadecimal value to a 1 in base58.
+
+You see, putting zeros at the start of a number does not increase the size of it (e.g. 0x12 is the same as 0x0012), so when we convert to base58 (which uses the modulus function) any extra zeros at the start will not affect the result.
+
+Therefore, to ensure that leading zeros have an influence on the result, the bitcoin base58 encoding includes a manual step to convert all leading 0x00’s to 1’s.
+
+I’m not sure why we convert zero bytes at the start to 1s in base58, but that’s how it works in bitcoin.
+
+#### Prefixes
+
+In Bitcoin, different prefixes are added to data before converting to base58 to influence the leading character of the result. This leading character then helps us to identify what each base58 string represents.
+
+These are the most common prefixes used in bitcoin:
+
+> Mainnet
+
+| Prefix (hex) | Base58 Leading character | Represents           | Example                                                                                                           |
+|--------------|--------------------------|----------------------|-------------------------------------------------------------------------------------------------------------------|
+| `00`         | 1                        | P2PKH Address        | `1AKDDsfTh8uY4X3ppy1m7jw1fVMBSMkzjP`                                                                              |
+| `05`         | 3                        | P2SH Address         | `34nSkinWC9rDDJiUY438qQN1JHmGqBHGW7`                                                                              |
+| `80`         | K / L                    | WIF Private Key*     | `L4mee2GrpBSckB9SgC9WhHxvtEgKUvgvTiyYcGu38mr9CGKBGp93`                                                            |
+| `80`         | 5                        | WIF Private Key**    | `5KXWNXeaVMwjzMsrKPv8dmdEZuVPmPay4nm5SfVZCjLHoy1B56w`                                                             |
+| `0488ADE4`   | xprv                     | Extended Private Key | `xprv9tuogRdb5YTgcL3P8Waj7REqDuQx4sXcodQaWTtEVFEp6yRKh1CjrWfXChnhgHeLDuXxo2auDZegMiVMGGxwxcrb2PmiGyCngLxvLeGsZRq` |
+| `0488B21E`   | xpub                     | Extended Public Key  | `xpub67uA5wAUuv1ypp7rEY7jUZBZmwFSULFUArLBJrHr3amnymkUEYWzQJz13zLacZv33sSuxKVmerpZeFExapBNt8HpAqtTtWqDQRAgyqSKUHu` |
+
+
+> *NOTES*
+> 
+> *when the private key is used to create a compressed public key.
+> 
+> **when the private key is used to create an uncompressed public key.
+
+> Testnet
+
+| Prefix (hex) | Base58 Leading character | Represents           | Example                                                                                                           |
+|--------------|--------------------------|----------------------|-------------------------------------------------------------------------------------------------------------------|
+| `6F`         | m / n                    | P2PKH Address        | `ms2qxPw1Q2nTkm4eMHqe6mM7JAFqAwDhpB`                                                                              |
+| `C4`         | 2                        | P2SH Address         | `2MwSNRexxm3uhAKF696xq3ztdiqgMj36rJo`                                                                             |
+| `EF`         | c                        | WIF Private Key*     | `cV8e6wGiFF8succi4bxe4cTzWTyj9NncXm81ihMYdtW9T1QXV5gS`                                                            |
+| `EF`         | 9                        | WIF Private Key**    | `93J8xGU85b1sxRP8wjp3WNBCDZr6vZ8AQjd2XHr4YU5Lb21jS1L`                                                             |
+| `04358394`   | tprv                     | Extended Private Key | `tprv9tuogRdb5YTgcL3P8Waj7REqDuQx4sXcodQaWTtEVFEp6yRKh1CjrWfXChnhgHeLDuXxo2auDZegMiVMGGxwxcrb2PmiGyCngLxvLeGsZRq` |
+| `043587CF`   | tpub                     | Extended Public Key  | `tpub67uA5wAUuv1ypp7rEY7jUZBZmwFSULFUArLBJrHr3amnymkUEYWzQJz13zLacZv33sSuxKVmerpZeFExapBNt8HpAqtTtWqDQRAgyqSKUHu` |
+
+
+> *NOTES*
+>
+> *when the private key is used to create a compressed public key.
+>
+> **when the private key is used to create an uncompressed public key.
+
 
 #### VarInt
 A VarInt (variable integer) is a field used in transaction data to indicate the number of upcoming fields, or the length of an upcoming field.
@@ -71,3 +136,43 @@ However, if the VarInt is going to be greater than 0xfc (so the number you’re 
 | <= 0xffff             | fd1234             | 	Prefix with fd, and the next 2 bytes is the VarInt (in little-endian). |
 | <= 0xffffffff         | fe12345678         | 	Prefix with fe, and the next 4 bytes is the VarInt (in little-endian). |
 | <= 0xffffffffffffffff | ff1234567890abcdef | 	Prefix with ff, and the next 8 bytes is the VarInt (in little-endian). |
+
+### Private Key
+
+A private key is a random number. It is a 256 bits (32 Bytes = Uint32) number.
+
+It is used as the source of a public key.
+
+> **A private key can be almost any 256-bit number.**
+>
+> When you create a public key, your private key is put through a special mathematical function, and this function can only handle numbers up to just below 256 bits. The maximum value is:
+>
+> ```bash
+> max = 115792089237316195423570985008687907852837564279074904382605163141518161494336
+> ```
+>
+> This number is n-1, where n is the number of points on the elliptic curve used in Bitcoin. So when you generate a 256 bit number, you will want to check that it’s not above this maximum value.
+
+#### Formats
+
+A hexadecimal private key is 32 bytes (64 characters):
+
+```bash
+ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2
+```
+However, you can convert your private key to a **WIF Private Key**, which basically makes it easier to copy and import in to wallets.
+
+#### WIF Private Key
+
+A private key can be converted in to a “Wallet Import Format”, which basically makes it easier to copy and move around (because it’s shorter and contains a checksum for detecting errors).
+
+A WIF private key is a standard private key, but with a few added extras:
+
+1. Version Byte prefix - Indicates which network the private key is to be used on.
+   - 0x80 = Mainnet
+   - 0xEF = Testnet
+2. Compression Byte suffix (optional) - Indicates if the private key is used to create a compressed public key.
+   - 0x01
+3. Checksum - Useful for detecting errors/typos when you type out your private key.
+
+This is all then converted to Base58, which shortens the entire thing and makes it easier to transcribe…
