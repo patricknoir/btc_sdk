@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:btc_sdk/btc_sdk.dart';
 import 'package:btc_sdk/src/model/buffer.dart';
 import 'package:btc_sdk/src/model/uint.dart';
+import 'package:btc_sdk/src/model/var_int.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -49,6 +50,61 @@ void main() {
       expect(buffer.toUint8List, [13, 255, 14]);
       expect(buffer.pullSegment(2), [13, 255]);
       expect(buffer.toUint8List, [14]);
+    });
+
+    test('working with VarInt with size 1', () {
+      final buffer = Buffer(initial: [13, 255, 96, 33, 14].toUint8List);
+      expect(buffer.inspectVarInt().toUint8List, [13]);
+      expect(buffer.inspectVarInt(start: 2).toUint8List, [96]);
+      expect(buffer.toUint8List, [13, 255, 96, 33, 14]);
+
+      final varint1 = buffer.pullVarInt();
+      expect(varint1.toUint8List, [13]);
+      expect(buffer.toUint8List, [255, 96, 33, 14]);
+      buffer.appendVarInt(varint1);
+      expect(buffer.toUint8List, [255, 96, 33, 14, 13]);
+
+      final varint2 = buffer.pullVarInt(start: 2);
+      expect(varint2.toUint8List, [33]);
+      expect(buffer.toUint8List, [255, 96, 14, 13]);
+    });
+
+    test('working with VarInt with size 3', () {
+      final buffer = Buffer(initial: [13, 253, 96, 33, 14].toUint8List);
+      expect(buffer.inspectVarInt(start: 1).toUint8List, [253, 96, 33]);
+      expect(buffer.toUint8List, [13, 253, 96, 33, 14]);
+
+      final varint3 = buffer.pullVarInt(start: 1);
+      expect(varint3.toUint8List, [253, 96, 33]);
+      expect(buffer.toUint8List, [13, 14]);
+      buffer.appendVarInt(varint3);
+      expect(buffer.toUint8List, [13, 14, 253, 96, 33]);
+    });
+
+    test('working with VarInt with size 5', () {
+      final buffer = Buffer(initial: [13, 253, 96, 33, 14].toUint8List);
+      VarInt varint5 = VarInt.fromValue(0x80081E5);
+      expect(varint5.flag, 0xFE);
+      buffer.appendVarInt(varint5);
+      expect(buffer.toUint8List, [13, 253, 96, 33, 14] + varint5.toUint8List);
+      buffer.appendUint8(64);
+      expect(buffer.inspectVarInt(start:5), varint5);
+      final extracted = buffer.pullVarInt(start:5);
+      expect(extracted, varint5);
+      expect(buffer.toUint8List, [13, 253, 96, 33, 14, 64]);
+    });
+
+    test('working with VarInt with size 9', () {
+      final buffer = Buffer(initial: [13, 253, 96, 33, 14].toUint8List);
+      VarInt varint9 = VarInt.fromValue(0x4BF583A17D59C158);
+      expect(varint9.flag, 0xFF);
+      buffer.appendVarInt(varint9);
+      expect(buffer.toUint8List, [13, 253, 96, 33, 14] + varint9.toUint8List);
+      buffer.appendUint8(64);
+      expect(buffer.inspectVarInt(start:5), varint9);
+      final extracted = buffer.pullVarInt(start:5);
+      expect(extracted, varint9);
+      expect(buffer.toUint8List, [13, 253, 96, 33, 14, 64]);
     });
 
     test('working with Uint8', () {

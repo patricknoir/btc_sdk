@@ -56,10 +56,9 @@ class Buffer {
   /// Once the VarInt is returned the field is also removed from the buffer.
   VarInt pullVarInt({int start = 0}) {
     VarInt varint = inspectVarInt(start: start);
-    _internal = _internal.sublist(0, start).concat(_internal.sublist(VarInt.varIntSize(varint.flag)));
+    _internal = _internal.sublist(0, start).concat(_internal.sublist(start + VarInt.varIntSize(varint.flag)));
     return varint;
   }
-
 
   /// Append the passed [value] as a single byte into the buffer.
   ///
