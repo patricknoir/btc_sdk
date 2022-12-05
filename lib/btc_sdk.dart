@@ -4,6 +4,16 @@
 library btc_sdk;
 
 export 'src/btc_sdk_base.dart';
+
 export 'src/model/binary/uint.dart';
 export 'src/model/binary/var_int.dart';
 export 'src/model/binary/buffer.dart';
+
+export 'src/model/crypto/hash.dart';
+
+export 'src/model/bitcoin/elliptic.dart';
+export 'src/model/bitcoin/network.dart';
+export 'src/model/bitcoin/private_key.dart';
+export 'src/model/bitcoin/public_key.dart';
+export 'src/model/bitcoin/wif_private_key.dart';
+
