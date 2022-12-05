@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
+import 'package:btc_sdk/src/model/crypto/private_key.dart';
 import 'package:btc_sdk/src/model/crypto/hash.dart';
 import 'package:test/test.dart';
 

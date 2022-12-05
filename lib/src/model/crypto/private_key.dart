@@ -23,7 +23,7 @@ class PrivateKey {
     } else {
       this.value.setRange(32 - value.length, 32, value);
     }
-    publicKey = PublicKey(curve ??= EllipticCurve.secp256k1, curve.multiply(BigInt.parse(value.toHex, radix: 16)));
+    publicKey = PublicKey(curve ??= EllipticCurve.secp256k1, curve.multiply(value.toBigInt));
   }
 
   /// Create an instance of [PrivateKey] from a valid Hex representation of a 32 bytes array.

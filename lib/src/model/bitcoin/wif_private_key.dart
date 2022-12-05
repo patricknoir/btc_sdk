@@ -15,7 +15,7 @@ class WifPrivateKey extends PrivateKey {
 
   WifPrivateKey(this.network, Uint8List value, this.isCompressed) : super(value);
 
-  /// Return the [PrivateKey] in the WIF Compressed/Uncompressed (Wallet Inport Format) for a specific bitcoin [Network].
+  /// Return the [PrivateKey] in the WIF Compressed/Uncompressed (Wallet Import Format) for a specific bitcoin [Network].
   String get toWif {
     Uint8List extended = network.prefix.to8Bits().concat(value);
     if(isCompressed) {
