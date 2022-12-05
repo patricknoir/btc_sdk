@@ -2,11 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/elliptic.dart';
-import 'package:btc_sdk/src/model/bitcoin/network.dart';
-import 'package:btc_sdk/src/model/bitcoin/public_key.dart';
-import 'package:btc_sdk/src/model/bitcoin/wif_private_key.dart';
-import 'package:btc_sdk/src/model/crypto/hash.dart';
 import 'package:hex/hex.dart';
 
 /// Contains the value of a valid private key for bitcoin wallets.
@@ -22,6 +17,7 @@ class PrivateKey {
   /// The passed [EllipticCurve] will be used to perform the multiplication in order to derive the [PublicKey].
   /// If no curve is specified the [EllipticCurve.secp256k1] will be used.
   PrivateKey(Uint8List value, {EllipticCurve? curve}) {
+    this.curve = (curve ??= EllipticCurve.secp256k1);
     if(value.length >= 32) {
       this.value.setRange(0, 32, value.sublist(value.length - 32));
     } else {
@@ -51,4 +47,6 @@ class PrivateKey {
   Uint8List get toUint8List => value;
 
   WifPrivateKey toWifPrivateKey(Network network, bool isCompressed) => WifPrivateKey(network, this.value, isCompressed);
+
+
 }

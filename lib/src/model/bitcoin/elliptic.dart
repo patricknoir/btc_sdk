@@ -42,15 +42,16 @@ class EllipticCurve extends Equatable {
   /// “Doubling” a point is the same thing as “adding” a point to itself.
   ///
   /// From a visual perspective, to “double” a point you draw a tangent to the curve at the given point, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
-  BigIntPoint double(BigIntPoint point) {
+  BigIntPoint double(BigIntPoint point, {BigInt? modulus}) {
+    modulus ??= p;
     // slope = (3x₁² + a) / 2y₁ = (3x₁² + a) * inverse(2y₁)
-    BigInt slope = ((BigInt.from(3) * point.x.pow(2) + a) * (BigInt.from(2) * point.y).modInverse(p)) % p;
+    BigInt slope = ((BigInt.from(3) * point.x.pow(2) + a) * (BigInt.from(2) * point.y).modInverse(modulus)) % modulus;
 
     // x = slope² - 2x₁
-    BigInt x = (slope.pow(2) - BigInt.from(2) * point.x) % p;
+    BigInt x = (slope.pow(2) - BigInt.from(2) * point.x) % modulus;
 
     // y = slope * (x₁ - x) - y₁
-    BigInt y = (slope * (point.x - x) - point.y) % p;
+    BigInt y = (slope * (point.x - x) - point.y) % modulus;
 
     return BigIntPoint(x: x, y: y);
   }
@@ -87,9 +88,9 @@ class EllipticCurve extends Equatable {
   ///
   /// - 0 = double
   /// - 1 = double and add
-  BigIntPoint multiply(BigInt k) {
+  BigIntPoint multiply(BigInt k, {BigIntPoint? generator}) {
     // create a copy the initial starting point (for use in addition later on)
-    BigIntPoint current = G;
+    BigIntPoint current = (generator ??= G);
 
     // create a copy the initial starting point (for use in addition later on)
     String kBinary = k.toRadixString(2);
@@ -99,7 +100,7 @@ class EllipticCurve extends Equatable {
       current = double(current);
 
       if(kBinary[i] == "1") {
-        current = add(current, G);
+        current = add(current, generator ??= G);
       }
     }
 
