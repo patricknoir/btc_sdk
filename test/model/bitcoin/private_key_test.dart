@@ -1,6 +1,7 @@
 import 'package:btc_sdk/btc_sdk.dart';
 import 'package:btc_sdk/src/model/bitcoin/network.dart';
 import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
+import 'package:btc_sdk/src/model/bitcoin/public_key.dart';
 import 'package:btc_sdk/src/model/crypto/hash.dart';
 import 'package:test/test.dart';
 
@@ -38,8 +39,17 @@ void main() {
     });
 
     test('generate public key', () {
-      PrivateKey prvk = PrivateKey.parseHex('ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2');
-      expect(prvk.publicKey.compressed.toHex, '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737');
+      final expectedX = '87D82042D93447008DFE2AF762068A1E53FF394A5BF8F68A045FA642B99EA5D1'.toLowerCase();
+      final expectedY = '53F577DD2DBA6C7AE4CFD7B6622409D7EDD2D76DD13A8092CD3AF97B77BD2C77'.toLowerCase();
+      PrivateKey prvKey = PrivateKey.fromSeed('hello');
+      expect(prvKey.toUint8List.toHex, '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'.toLowerCase());
+
+      PublicKey pubKey = prvKey.publicKey;
+      expect(pubKey.point.x.toRadixString(16), expectedX);
+      expect(pubKey.point.y.toRadixString(16), expectedY);
+
+      expect(pubKey.uncompressed.toHex, "04" + expectedX + expectedY);
+      expect(pubKey.compressed.toHex, "03" + expectedX);
     });
 
     test('generate p2pkh address for mainnet from the private key', () {

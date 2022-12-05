@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/elliptic_algo.dart';
+import 'package:btc_sdk/src/model/bitcoin/elliptic.dart';
 import 'package:btc_sdk/src/model/bitcoin/network.dart';
 import 'package:btc_sdk/src/model/bitcoin/public_key.dart';
 import 'package:btc_sdk/src/model/bitcoin/wif_private_key.dart';
@@ -13,6 +13,7 @@ import 'package:hex/hex.dart';
 class PrivateKey {
   late final EllipticCurve curve;
   final Uint8List value = Uint8List(32);
+  /// The publicKey is the [BigIntPoint] in the [EllipticCurve] obtained by multiplying the [PrivateKey.value] by the `curve.G` point of the [EllipticCurve] used.
   late final PublicKey publicKey;
 
   /// Create an instance of [PrivateKey] from a valid 32 bytes input.

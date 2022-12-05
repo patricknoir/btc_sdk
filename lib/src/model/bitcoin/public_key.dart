@@ -3,7 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/elliptic_algo.dart';
+import 'package:btc_sdk/src/model/bitcoin/elliptic.dart';
 import 'package:equatable/equatable.dart';
 
 class PublicKey extends Equatable {

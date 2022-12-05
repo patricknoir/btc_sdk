@@ -2,19 +2,13 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 
-/// An elliptic curve is a set of points described by the equation y² = x³ + ax + b, so this is where the a and b variables come from. Different curves will have different values for these coefficients, and a=0 and b=7 are the ones specific to secp256k1.
+/// An elliptic curve is a set of points described by the equation `y² = x³ + ax + b mod p`, so this is where the a and b variables come from. Different curves will have different values for these coefficients, and a=0 and b=7 are the ones specific to [EllipticCurve.secp256k1].
 ///
 /// The prime modulus p is just a number that keeps all of the numbers within a specific range when performing mathematical calculations (again it’s specific to secp256k1). The fact that it’s a prime number is a key ingredient for the cryptography to work, but that’s an aside.
 ///
 /// There are n number of points on the curve we can reach. This is also referred to as the “order”. It’s less than p, and it’s based on the chosen generator point (see below).
 ///
 /// Finally, every curve has a generator point G, which is basically the starting point on the curve used when performing most mathematical operations. The exact origin for the choice of this point is unknown1, but it’s usually because it provides a high order (see above) and has shown to not have any inherent cryptographic weaknesses.
-class EllipticAlgo {
-
-
-
-}
-
 class EllipticCurve extends Equatable {
   final BigInt a;
   final BigInt b;
@@ -22,14 +16,16 @@ class EllipticCurve extends Equatable {
   final BigInt n;
   final BigIntPoint G;
 
-
+  /// Create an elliptic curve by specifying the equation parameters: `y² = x³ + ax + b mod p`.
   const EllipticCurve._({required this.a, required this.b, required this.p, required this.n, required this.G});
 
-  ///  --------------------------
-  ///  Secp256k1 Curve Parameters
-  ///  --------------------------
+  /// This is a nickname for one of the specific curves used in elliptic curve cryptography:
   ///
-  ///  y^2 = x^3 + ax + b (mod p)
+  /// - sec = Standard for Efficient Cryptography — A consortium that develops commercial standards for cryptography.
+  /// - p = Prime — The prime number used to create the finite field.
+  /// - 256 = 256 bits — Size of the prime field used.
+  /// - k = Koblitz — Specific type of curve.
+  /// - 1 = First curve in this category.
   static final EllipticCurve secp256k1 =
     EllipticCurve._(
       a: BigInt.from(0),
@@ -43,6 +39,9 @@ class EllipticCurve extends Equatable {
     );
 
 
+  /// “Doubling” a point is the same thing as “adding” a point to itself.
+  ///
+  /// From a visual perspective, to “double” a point you draw a tangent to the curve at the given point, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
   BigIntPoint double(BigIntPoint point) {
     // slope = (3x₁² + a) / 2y₁ = (3x₁² + a) * inverse(2y₁)
     BigInt slope = ((BigInt.from(3) * point.x.pow(2) + a) * (BigInt.from(2) * point.y).modInverse(p)) % p;
@@ -56,6 +55,9 @@ class EllipticCurve extends Equatable {
     return BigIntPoint(x: x, y: y);
   }
 
+  /// As expected, “addition” of two points in elliptic curve mathematics isn’t the same as straightforward integer addition, but it’s called “addition” anyway.
+  ///
+  /// From a visual perspective, to “add” two points together you draw a line between them, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
   BigIntPoint add( BigIntPoint point1, BigIntPoint point2) {
     if(point1 == point2) {
       return double(point1);
@@ -73,6 +75,18 @@ class EllipticCurve extends Equatable {
     return BigIntPoint(x: x, y: y);
   }
 
+  /// A faster approach to multiplication is to use the double-and-add algorithm, where you make an efficient use of both doubling and adding to reach the target multiple in as few operations as possible.
+  ///
+  /// For example, if you start at 2 and want to get to 128, it’s faster to perfom six double() operations than it is to perform sixty-four add() operations.
+  ///
+  /// But how do you know how many double and add operations you need to get to your target multiple?
+  ///
+  /// Well, amazingly, if you convert any integer in to its binary representation, the 1s and 0s will provide a map for the sequence of double() and add() operations you need to perform to reach that multiple.
+  ///
+  /// Working from left to right and ignoring the first number:
+  ///
+  /// - 0 = double
+  /// - 1 = double and add
   BigIntPoint multiply(BigInt k) {
     // create a copy the initial starting point (for use in addition later on)
     BigIntPoint current = G;

@@ -81,5 +81,101 @@ class Modulus {
 From a visual perspective, to “double” a point you draw a tangent to the curve at the given point, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
 
 ```dart
+  BigIntPoint double(BigIntPoint point) {
+    // slope = (3x₁² + a) / 2y₁ = (3x₁² + a) * inverse(2y₁)
+    BigInt slope = ((BigInt.from(3) * point.x.pow(2) + a) * (BigInt.from(2) * point.y).modInverse(p)) % p;
 
+    // x = slope² - 2x₁
+    BigInt x = (slope.pow(2) - BigInt.from(2) * point.x) % p;
+
+    // y = slope * (x₁ - x) - y₁
+    BigInt y = (slope * (point.x - x) - point.y) % p;
+
+    return BigIntPoint(x: x, y: y);
+  }
+```
+
+### Add
+
+As expected, “addition” of two points in elliptic curve mathematics isn’t the same as straightforward integer addition, but it’s called “addition” anyway.
+
+From a visual perspective, to “add” two points together you draw a line between them, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
+
+```dart
+  BigIntPoint add( BigIntPoint point1, BigIntPoint point2) {
+    if(point1 == point2) {
+      return double(point1);
+    }
+
+    // slope = (y₁ - y₂) / (x₁ - x₂) = (y₁ - y₂) * inverse(x₁ - x₂)
+    BigInt slope = ((point1.y - point2.y) * (point1.x - point2.x).modInverse(p)) % p;
+
+    // x = slope² - x₁ - x₂
+    BigInt x = (slope.pow(2) - point1.x - point2.x) % p;
+
+    // y = slope * (x₁ - x) - y₁
+    BigInt y = (slope * (point1.x - x) - point1.y) % p;
+
+    return BigIntPoint(x: x, y: y);
+  }
+```
+
+### Multiply
+
+Now that we can “double” and “add” points on the curve, we can now take any point on the curve and “multiply” it by an integer to get to a completely new point. 
+**This operation is the heart of elliptic curve cryptography.**
+
+The simplest method for elliptic curve multiplication would be to repeatedly “add” a point to itself until you reach the number you want to multiply by, which would work to a degree, but these incremental add() operations would make this approach impossibly slow when multiplying by large numbers (like the ones used in Bitcoin).
+
+Thankfully there is a faster way to perform multiplication on elliptic curves…
+
+#### Double-and-Add
+
+A faster approach to multiplication is to use the double-and-add algorithm, where you make an efficient use of both doubling and adding to reach the target multiple in as few operations as possible.
+
+For example, if you start at 2 and want to get to 128, it’s faster to perfom six double() operations than it is to perform sixty-four add() operations.
+
+But how do you know how many double and add operations you need to get to your target multiple?
+
+Well, amazingly, if you convert any integer in to its binary representation, the 1s and 0s will provide a map for the sequence of double() and add() operations you need to perform to reach that multiple.
+
+Working from left to right and ignoring the first number:
+
+- 0 = double
+- 1 = double and add
+
+For example:
+
+```bash
+e.g. 1 * 21
+
+21 = 10101 (binary)
+      │││└ double and add = 21
+      ││└─ double         = 10
+      │└── double and add = 5
+      └─── double         = 2
+                            1  <- start here
+```
+
+Anyway, here’s what elliptic curve multiplication looks like when using the double-and-add algorithm in Dart code:
+
+```dart
+  BigIntPoint multiply(BigInt k) {
+    // create a copy the initial starting point (for use in addition later on)
+    BigIntPoint current = G;
+
+    // create a copy the initial starting point (for use in addition later on)
+    String kBinary = k.toRadixString(2);
+
+    for(int i=1; i<kBinary.length; i++) {
+      // double
+      current = double(current);
+
+      if(kBinary[i] == "1") {
+        current = add(current, G);
+      }
+    }
+
+    return current;
+  }
 ```

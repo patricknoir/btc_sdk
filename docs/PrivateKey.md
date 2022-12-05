@@ -37,3 +37,17 @@ A WIF private key is a standard private key, but with a few added extras:
 3. [Checksum](Checksum.md) - Useful for detecting errors/typos when you type out your private key.
 
 This is all then converted to Base58, which shortens the entire thing and makes it easier to transcribe…
+
+## Generating the PublicKey
+
+When you multiply the `PrivateKey.value` by the generator `BigIntPoint` `curve.G` of the `EllipticCurve` instance used,
+you obtain a new `BigIntPoint` in the curve: this point is your `PublicKey`.
+
+i.e.:
+```dart
+PrivateKey prvKey = PrivateKey.fromSeed('hello');
+PublicKey pubKey = EllipticCurve.secp256k1.G * prvKey;
+
+expect(prvKey.toUint8List.toHex, '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'.toLowerCase());
+
+```

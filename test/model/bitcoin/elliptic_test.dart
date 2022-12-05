@@ -1,4 +1,4 @@
-import 'package:btc_sdk/src/model/bitcoin/elliptic_algo.dart';
+import 'package:btc_sdk/src/model/bitcoin/elliptic.dart';
 import 'package:test/test.dart';
 
 void main() {
