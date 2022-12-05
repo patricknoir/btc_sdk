@@ -8,7 +8,7 @@ import 'package:hex/hex.dart';
 import 'model/binary/uint.dart';
 
 extension StringExtensions on String {
-  Uint8List? get fromHex {
+  Uint8List? get toUint8ListFromHex {
     try {
       return HEX.decode(this).toUint8List;
     } catch(exception) {
@@ -16,7 +16,7 @@ extension StringExtensions on String {
     }
   }
 
-  Uint8List? get fromBase58 {
+  Uint8List? get toUint8ListFromBase58 {
     try {
       return Base58Decode(this).toUint8List;
     } catch(exception) {

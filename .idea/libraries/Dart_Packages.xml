@@ -86,13 +86,6 @@
             </list>
           </value>
         </entry>
-        <entry key="elliptic">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/elliptic-0.3.8/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="equatable">
           <value>
             <list>
@@ -395,7 +388,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/convert-3.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/elliptic-0.3.8/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fast_base58-0.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/file-6.1.4/lib" />

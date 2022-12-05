@@ -27,13 +27,13 @@ void main() {
 
       final String hexData = data.toHex;
       expect(hexData, '7C08EA9C'.toLowerCase());
-      expect('7C08EA9C'.fromHex, [124, 8, 234, 156]);
+      expect('7C08EA9C'.toUint8ListFromHex, [124, 8, 234, 156]);
 
-      expect(hexData.fromHex, data);
-      expect('hello'.fromHex, null, reason: 'An invalid HEX string should generate a null Uint8List');
+      expect(hexData.toUint8ListFromHex, data);
+      expect('hello'.toUint8ListFromHex, null, reason: 'An invalid HEX string should generate a null Uint8List');
 
       expect(data.toBase58, '4AtTej');
-      expect('3yQ'.fromBase58?.buffer.asByteData().getInt16(0), 9999);
+      expect('3yQ'.toUint8ListFromBase58?.buffer.asByteData().getInt16(0), 9999);
 
       final l1 = [128].toUint8List;
       final l2 = [64].toUint8List;

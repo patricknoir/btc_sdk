@@ -1,12 +1,20 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
+import 'package:btc_sdk/src/model/bitcoin/elliptic_algo.dart';
 import 'package:btc_sdk/src/model/bitcoin/network.dart';
 import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
 
 import '../crypto/hash.dart';
 
+/// Wallet Import Format PrivateKey
+///
+/// WIF PrivateKey are used to be exported/imported from/to non custodial wallets.
+/// They are specific for a bitcoin [Network] and they can be used to generate compressed/uncompressed public keys
 class WifPrivateKey extends PrivateKey {
+  // ignore: constant_identifier_names
+  static const int COMPRESSION_BYTE = 0x01;
+
   final Network network;
   final bool isCompressed;
 
@@ -16,7 +24,7 @@ class WifPrivateKey extends PrivateKey {
   String get toWif {
     Uint8List extended = network.prefix.to8Bits().concat(value);
     if(isCompressed) {
-      extended = extended.concat([0x01].toUint8List);
+      extended = extended.concat([COMPRESSION_BYTE].toUint8List);
     }
     Uint8List checksum = Hash.checksum(extended);
     return extended.concat(checksum).toBase58;
