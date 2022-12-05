@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/signed_hash.dart';
 import 'package:test/test.dart';
 
 void main() {

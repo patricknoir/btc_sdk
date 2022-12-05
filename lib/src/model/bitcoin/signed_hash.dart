@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
 import 'package:equatable/equatable.dart';
 
 class SignedHash extends Equatable {

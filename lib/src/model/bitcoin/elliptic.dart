@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 
 /// An elliptic curve is a set of points described by the equation `y² = x³ + ax + b mod p`, so this is where the a and b variables come from. Different curves will have different values for these coefficients, and a=0 and b=7 are the ones specific to [EllipticCurve.secp256k1].

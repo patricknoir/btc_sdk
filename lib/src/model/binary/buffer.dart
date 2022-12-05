@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/binary/var_int.dart';
 
 /// This class is used to perform manipulation of array of bytes represented as Uint8List.
 class Buffer {

@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:btc_sdk/src/btc_sdk_base.dart';
 import 'package:equatable/equatable.dart';
 
 /// A VarInt or "Variable Integer" is an integer format used widely in Bitcoin to indicate the lengths of fields within transaction, block and peer-to-peer network data.

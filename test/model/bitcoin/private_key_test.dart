@@ -1,8 +1,4 @@
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/network.dart';
-import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
-import 'package:btc_sdk/src/model/bitcoin/public_key.dart';
-import 'package:btc_sdk/src/model/crypto/hash.dart';
 import 'package:test/test.dart';
 
 void main() {

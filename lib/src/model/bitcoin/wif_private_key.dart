@@ -1,11 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/elliptic.dart';
-import 'package:btc_sdk/src/model/bitcoin/network.dart';
-import 'package:btc_sdk/src/model/bitcoin/private_key.dart';
-
-import '../crypto/hash.dart';
 
 /// Wallet Import Format PrivateKey
 ///
