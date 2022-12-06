@@ -51,3 +51,5 @@ PublicKey pubKey = EllipticCurve.secp256k1.G * prvKey;
 expect(prvKey.toUint8List.toHex, '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'.toLowerCase());
 
 ```
+
+Fore more details check the [Public Key](PublicKey.md) documentation.
