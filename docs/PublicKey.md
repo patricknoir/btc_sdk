@@ -101,6 +101,8 @@ This can be further improved by hashing the compressed public key representation
 Simply by hashing using `hash160` defined as: `RIPEMD160(SHA256(PublicKey.compressed))` we obtain a new bytes array of size 20 bytes.
 This goes under the name of `Public Key Hash (PKH)` and is largely used to create wallet addresses in bitcoin's networks.
 
+There are many derivation of the `PKH` which are at the base of the most common bitcoin wallet addresses, which will be covered under the [Bitcoin Address]() page.
+
 ```dart
 /// Represent an instance of a [PublicKey] derived from the [SecretKey] by using the
 /// [EllipticCurve] instance associated.
