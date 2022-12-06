@@ -45,7 +45,7 @@ void main() {
       expect(pubKey.point.y.toRadixString(16), expectedY);
 
       expect(pubKey.uncompressed.toHex, "04" + expectedX + expectedY);
-      expect(pubKey.compressed.toHex, "03" + expectedX););
+      expect(pubKey.compressed.toHex, "03" + expectedX);
     });
 
     test('generate p2pkh address for mainnet from the private key', () {
