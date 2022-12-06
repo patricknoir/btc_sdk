@@ -14,7 +14,7 @@ export 'src/model/crypto/hash.dart';
 export 'src/model/crypto/private_key.dart';
 export 'src/model/crypto/public_key.dart';
 export 'src/model/crypto/signed_hash.dart';
-export 'src/model/bitcoin/wif_private_key.dart';
 
 export 'src/model/bitcoin/network.dart';
+export 'src/model/bitcoin/wif_private_key.dart';
 
