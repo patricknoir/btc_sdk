@@ -17,7 +17,7 @@ void main() {
       expect(pubKey.point, expectedPoint);
       expect(pubKey.uncompressed.toHex, '04' + hexX + hexY);
       expect(pubKey.compressed.toHex, '02' + hexX);
-      expect(pubKey.toPublicKeyHash, Hash.hash160(pubKey.compressed));
+      expect(pubKey.toPublicKeyHash(compress: true), Hash.hash160(pubKey.compressed));
     });
   });
 }

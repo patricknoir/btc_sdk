@@ -31,7 +31,7 @@ class PublicKey extends Equatable {
   Uint8List get compressed => ((point.y.isEven) ? [COMPRESSED_EVEN_PREFIX] : [ COMPRESSED_ODD_PREFIX]).toUint8List.concat(point.x.toRadixString(16).toUint8ListFromHex!);
 
   /// Return the [Hash.hash160] of the [PublicKey.compressed] representation. This is convenient because is smaller than the original [PublicKey].
-  Uint8List get toPublicKeyHash => Hash.hash160(compressed);
+  Uint8List toPublicKeyHash({bool compress = false}) => Hash.hash160(compress ? compressed : uncompressed);
 
   @override
   List<Object?> get props => [curve, point];
