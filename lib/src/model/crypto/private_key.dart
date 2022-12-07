@@ -46,7 +46,7 @@ class PrivateKey {
   /// Return a [Uint8List] representation for this key
   Uint8List get toUint8List => value;
 
-  WifPrivateKey toWifPrivateKey(Network network, bool isCompressed) => WifPrivateKey(network, this.value, isCompressed);
+  WifPrivateKey toWifPrivateKey(Network network, bool isCompressed) => WifPrivateKey(network, value, isCompressed);
 
 
 }

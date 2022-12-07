@@ -22,7 +22,7 @@ class WifPrivateKey extends PrivateKey {
 
   factory WifPrivateKey.parseBase58Check(String wifPVKH, {EllipticCurve? curve}) {
     final decoded = wifPVKH.toUint8ListFromBase58!;
-    final network = Network.fromPrefix(decoded[0]);
+    final network = Network.fromWif(decoded[0]);
     final isCompressed = (decoded.length == WIF_COMPRESSED_PRIVATE_KEY_LENGTH);
     final value = decoded.sublist(1, decoded.length - 4 - (isCompressed ? 1 : 0));
 
@@ -34,14 +34,11 @@ class WifPrivateKey extends PrivateKey {
 
   /// Return the [PrivateKey] in the WIF Compressed/Uncompressed (Wallet Import Format) for a specific bitcoin [Network].
   String get toWif {
-    Uint8List extended = network.prefix.to8Bits().concat(value);
+    Uint8List extended = network.wif.to8Bits().concat(value);
     if(isCompressed) {
       extended = extended.concat([COMPRESSION_BYTE].toUint8List);
     }
     Uint8List checksum = Hash.checksum(extended);
     return extended.concat(checksum).toBase58;
   }
-
-  @override
-  List<Object?> get props => [network, value, curve, isCompressed];
 }
