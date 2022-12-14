@@ -41,7 +41,10 @@ extension ListIntExtensions on List<int> {
 
 extension Uint8ListExtensions on Uint8List {
   Uint8List concat(Uint8List other) {
-    return (this + other).toUint8List;
+    Uint8List list = Uint8List(length + other.length);
+    list.setRange(0, length, this);
+    list.setRange(length, list.length, other);
+    return list;
   }
 
   /// It returns a nullable if the argument is a negative value.
@@ -98,6 +101,9 @@ extension Uint8ListExtensions on Uint8List {
 
     return true;
   }
+
+  String get toBinaryString => map((byte) => byte.toRadixString(2).padLeft(8, '0')).join('');
+
 }
 
 /// Utility extension for int to convert into Uint8List with different Endian options.

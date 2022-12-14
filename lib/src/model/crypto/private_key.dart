@@ -9,7 +9,7 @@ class PrivateKey {
   late final EllipticCurve curve;
   final Uint8List value = Uint8List(32);
   /// The publicKey is the [BigIntPoint] in the [EllipticCurve] obtained by multiplying the [PrivateKey.value] by the `curve.G` point of the [EllipticCurve] used.
-  late final PublicKey publicKey;
+  PublicKey get publicKey => PublicKey(curve, curve.multiply(value.toBigInt));
 
   /// Create an instance of [PrivateKey] from a valid 32 bytes input.
   ///
@@ -23,7 +23,6 @@ class PrivateKey {
     } else {
       this.value.setRange(32 - value.length, 32, value);
     }
-    publicKey = PublicKey(curve ??= EllipticCurve.secp256k1, curve.multiply(value.toBigInt));
   }
 
   /// Create an instance of [PrivateKey] from a valid Hex representation of a 32 bytes array.
@@ -47,6 +46,4 @@ class PrivateKey {
   Uint8List get toUint8List => value;
 
   WifPrivateKey toWifPrivateKey(Network network, bool isCompressed) => WifPrivateKey(network, value, isCompressed);
-
-
 }
