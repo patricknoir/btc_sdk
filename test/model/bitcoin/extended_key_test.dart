@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:btc_sdk/btc_sdk.dart';
 import 'package:btc_sdk/src/model/bitcoin/extended_private_key.dart';
+import 'package:btc_sdk/src/model/bitcoin/extended_public_key.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -14,12 +17,16 @@ void main() {
       expect(extendedPrivateKey.chainCode.toHex, '463223aac10fb13f291a1bc76bc26003d98da661cb76df61e750c139826dea8b');
       expect(extendedPrivateKey.value.toHex, 'f79bb0d317b310b261a55a8ab393b4c8a1aba6fa4d08aef379caba502d5d67f9');
       expect(extendedPrivateKey.publicKey.compressed.toHex, '0252c616d91a2488c1fd1f0f172e98f7d1f6e51f8f389b2f8d632a8b490d5f6da9');
+
+      // print(extendedPrivateKey.serialize);
     });
 
     test('derive normal child', () {
       final parentPrivateKey = ExtendedPrivateKey(
           '463223aac10fb13f291a1bc76bc26003d98da661cb76df61e750c139826dea8b'.toUint8ListFromHex!,
           'f79bb0d317b310b261a55a8ab393b4c8a1aba6fa4d08aef379caba502d5d67f9'.toUint8ListFromHex!);
+
+      expect(parentPrivateKey.publicKey.compressed.toHex, '0252c616d91a2488c1fd1f0f172e98f7d1f6e51f8f389b2f8d632a8b490d5f6da9');
 
       final childPrivateKey = parentPrivateKey.normalChild();
 
@@ -29,6 +36,8 @@ void main() {
       expect(childPrivateKey.chainCode.toHex, '05aae71d7c080474efaab01fa79e96f4c6cfe243237780b0df4bc36106228e31');
       expect(childPrivateKey.value.toHex, '39f329fedba2a68e2a804fcd9aeea4104ace9080212a52ce8b52c1fb89850c72');
       expect(childPrivateKey.publicKey.compressed.toHex, '030204d3503024160e8303c0042930ea92a9d671de9aa139c1867353f6b6664e59');
+
+      expect(childPrivateKey.serialize, 'xprv9tuogRdb5YTgcL3P8Waj7REqDuQx4sXcodQaWTtEVFEp6yRKh1CjrWfXChnhgHeLDuXxo2auDZegMiVMGGxwxcrb2PmiGyCngLxvLeGsZRq');
     });
 
     test('derive hardened child', () {
@@ -39,12 +48,29 @@ void main() {
       final childPrivateKey = parentPrivateKey.deriveKey(index: 2147483648);
 
       expect(childPrivateKey.parentPath, ExtendedPrivateKey.PATH_MASTER_PRIVATE);
-      expect(childPrivateKey.path, ExtendedPrivateKey.PATH_MASTER_PRIVATE + "/2147483648");
+      expect(childPrivateKey.path, ExtendedPrivateKey.PATH_MASTER_PRIVATE + "/0'");
       expect(childPrivateKey.index, 2147483648);
       expect(childPrivateKey.chainCode.toHex, 'cb3c17166cc30eb7fdd11993fb7307531372e565cd7c7136cbfa4655622bc2be');
       expect(childPrivateKey.value.toHex, '7272904512add56fef94c7b4cfc62bedd0632afbad680f2eb404e95f2d84cbfa');
       expect(() => childPrivateKey.publicKey, throwsException); // cannot generate a public key from and hardened private key!
       // expect(childPrivateKey.publicKey.compressed.toHex, '0355cff4a963ce259b08be9a864564caca210eb4eb35fcb75712e4bba7550efd95');
+    });
+  });
+
+  group('extended public key', () {
+    test('create', () {
+      final parentChainCode = "463223aac10fb13f291a1bc76bc26003d98da661cb76df61e750c139826dea8b".toUint8ListFromHex!;
+      final parentPublicKey = "0252c616d91a2488c1fd1f0f172e98f7d1f6e51f8f389b2f8d632a8b490d5f6da9".toUint8ListFromHex!;
+      final int i = 0;
+
+      ExtendedPublicKey extendedPublicKey = ExtendedPublicKey.fromCompressedParentPublicKey(parentChainCode, parentPublicKey);
+
+      ExtendedPublicKey derivedKey = extendedPublicKey.deriveKey();
+      expect(derivedKey.parentPath, ExtendedPublicKey.PATH_MASTER_PUBLIC);
+      expect(derivedKey.path, ExtendedPublicKey.PATH_MASTER_PUBLIC + "/$i");
+
+      expect(derivedKey.chainCode.toHex, 'c84e43b17651cc65f42f1374f527ad9f9fb5cc48c6224bff68883fc6a2a91df3');
+      expect(derivedKey.compressed.toHex, '03c1995d371665e35093a234a6529bfcfd81a04a143c8a130223b1567e2e0b2e4d');
     });
   });
 }

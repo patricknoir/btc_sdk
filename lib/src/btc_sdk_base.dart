@@ -116,21 +116,21 @@ extension IntExtensions on int {
   }
 
   /// Convert an integer value into a Uint8List. If the value is bigger than uint16 the most significant bits are be truncated.
-  Uint8List to16Bits({Endian endian = Endian.little}) {
+  Uint8List to16Bits({Endian endian = Endian.big}) {
     final Uint8List result = Uint8List(2);
     result.buffer.asByteData().setUint16(0, this, endian);
     return result;
   }
 
   /// Convert an integer value into a Uint8List. If the value is bigger than uint32 the most significant bits are be truncated.
-  Uint8List to32Bits({Endian endian = Endian.little}) {
+  Uint8List to32Bits({Endian endian = Endian.big}) {
     final Uint8List result = Uint8List(4);
     result.buffer.asByteData().setUint32(0, this, endian);
     return result;
   }
 
   /// Convert an integer value into a Uint8List.
-  Uint8List to64Bits({Endian endian = Endian.little}) {
+  Uint8List to64Bits({Endian endian = Endian.big}) {
     final Uint8List result = Uint8List(8);
     result.buffer.asByteData().setUint64(0, this, endian);
     return result;

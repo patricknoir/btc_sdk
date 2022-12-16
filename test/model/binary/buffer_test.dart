@@ -128,9 +128,9 @@ void main() {
       expect(buffer.toUint8List, [13, 255, 96, 0, 1]);
 
       expect(buffer.inspectUint16(), 65293);
-      expect(buffer.inspectUint16().to16Bits(), [13, 255]);
+      expect(buffer.inspectUint16().to16Bits(endian: Endian.little), [13, 255]);
       expect(buffer.inspectUint16(endian: Endian.big), 3583);
-      expect(buffer.inspectUint16(endian: Endian.big).to16Bits(), [255, 13]);
+      expect(buffer.inspectUint16(endian: Endian.big).to16Bits(endian: Endian.little), [255, 13]);
       expect(buffer.toUint8List, [13, 255, 96, 0, 1]);
       expect(buffer.pullUint16(), 65293);
       expect(buffer.toUint8List, [96, 0, 1]);
@@ -145,9 +145,9 @@ void main() {
       expect(buffer.toUint8List, [13, 255, 96, 0, 0, 1, 0]);
 
       expect(buffer.inspectUint32(), 6356749);
-      expect(buffer.inspectUint32().to32Bits(), [13, 255, 96, 0]);
+      expect(buffer.inspectUint32().to32Bits(endian: Endian.little), [13, 255, 96, 0]);
       expect(buffer.inspectUint32(endian: Endian.big), 234840064);
-      expect(buffer.inspectUint32(endian: Endian.big).to32Bits(), [0, 96, 255, 13]);
+      expect(buffer.inspectUint32(endian: Endian.big).to32Bits(endian: Endian.little), [0, 96, 255, 13]);
       expect(buffer.toUint8List, [13, 255, 96, 0, 0, 1, 0]);
       expect(buffer.pullUint32(), 6356749);
       expect(buffer.toUint8List, [0, 1, 0]);
@@ -162,9 +162,9 @@ void main() {
       expect(buffer.toUint8List, [13, 255, 96, 0, 0, 0, 0, 1, 0, 0, 0]);
 
       expect(buffer.inspectUint64(), 72057594044284685);
-      expect(buffer.inspectUint64().to64Bits(), [13, 255, 96, 0, 0, 0, 0, 1]);
+      expect(buffer.inspectUint64().to64Bits(endian: Endian.little), [13, 255, 96, 0, 0, 0, 0, 1]);
       expect(buffer.inspectUint64(endian: Endian.big), 1008630394670546945);
-      expect(buffer.inspectUint64(endian: Endian.big).to64Bits(), [1, 0, 0, 0, 0, 96, 255, 13]);
+      expect(buffer.inspectUint64(endian: Endian.big).to64Bits(endian: Endian.little), [1, 0, 0, 0, 0, 96, 255, 13]);
       expect(buffer.toUint8List, [13, 255, 96, 0, 0, 0, 0, 1, 0, 0, 0]);
       expect(buffer.pullUint64(), 72057594044284685);
       expect(buffer.toUint8List, [0, 0, 0]);
