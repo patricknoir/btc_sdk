@@ -1,9 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bip32/bip32.dart';
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:bip39/bip39.dart' as bip39;
-import 'package:btc_sdk/src/model/binary/uint.dart';
 import 'package:fast_base58/fast_base58.dart';
 import 'package:test/test.dart';
 
@@ -59,26 +56,6 @@ void main() {
       expect(Base58Encode([0]), '1', reason: 'In Base58 the digit 0 is suppressed not to be confused with the capital O. Hence the value 0 is represented by the digit 1.');
       expect(Base58Encode([57]), 'z');
       expect(Base58Decode('3yQ').toUint8List.buffer.asByteData().getUint16(0), 9999);
-    });
-
-
-    test('bip39.generateMnemonic', () {
-      final mnemonic = bip39.generateMnemonic();
-      expect(mnemonic
-          .split(' ').length,
-          12,
-          reason: mnemonic);
-    });
-
-    test('bip39 get the seed from a mnemonic', () {
-      final Uint8List seed = bip39.mnemonicToSeed(myMnemonic);
-      expect(seed.length, 64, reason: 'Seed length should be 64 byes');
-      expect(seed.toHex, '0124541c3a08aab8dd25821fcead035a29ce61ec86378015603cebe36d9fb451fefdcf3f9db61472312f38fad8f430263db180023acc42218657caeb42dfe07b');
-      expect(seed.toHex.length, seed.length * 2, reason: 'each Uint8 = 2 HEX Digits hence hex(seed).length = 2 * seed.length');
-    });
-
-    test('bip32', () {
-      final BIP32 hd = BIP32.fromSeed(bip39.mnemonicToSeed(myMnemonic));
     });
 
   });
