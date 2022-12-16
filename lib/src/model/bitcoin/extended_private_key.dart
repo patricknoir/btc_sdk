@@ -60,7 +60,6 @@ class ExtendedPrivateKey extends PrivateKey {
   /// The derived [ExtendedPrivateKey] obtained from this function can be used to create further
   /// derivations.
   ExtendedPrivateKey normalChild([int index = 0]) {
-    assert(this.index < PRIVATE_KEY_HARDENED_MIN_INDEX); // if the current key is an hardened key can't derive child keys.
     final data = publicKey.compressed.concat(index.to32Bits(endian: Endian.big));
     final intermediateKey = Hash.hmacSHA512(chainCode, data);
     final left = intermediateKey.sublist(0, 32);
@@ -72,14 +71,13 @@ class ExtendedPrivateKey extends PrivateKey {
   }
 
   /// Create a new instance of an [ExtendedPrivateKey] using the current key as a parent.
-  /// The new instance is an **Hardened Key**, which means cannot be used for further child derivations.
+  /// The new instance is an **Hardened Key**, which means cannot be used for [PublicKey] derivations.
   ///
   /// Optionally an index can be specified to determine which child branch this key belongs to,
   /// into the hierarchy.
   /// The derived [ExtendedPrivateKey] obtained from this function can be used to create further
   /// derivations.
   ExtendedPrivateKey hardenedChild(int index) {
-    assert(this.index < PRIVATE_KEY_HARDENED_MIN_INDEX); // if the current key is an hardened key can't derive child keys.
     assert(index >= PRIVATE_KEY_HARDENED_MIN_INDEX && index <= PRIVATE_KEY_HARDENED_MAX_INDEX);
     final data = 0.to8Bits().concat(value.concat(index.to32Bits(endian: Endian.big)));
     final intermediateKey = Hash.hmacSHA512(chainCode, data);
