@@ -8,7 +8,7 @@ import 'package:hex/hex.dart';
 class PrivateKey {
   late final EllipticCurve curve;
   final Uint8List value = Uint8List(32);
-  /// The publicKey is the [BigIntPoint] in the [EllipticCurve] obtained by multiplying the [PrivateKey.value] by the `curve.G` point of the [EllipticCurve] used.
+  /// The publicKey is the [BigIntPoint] in the [EllipticCurve] obtained by multiplying the [PrivateKey.value] by `curve.G` point (Generator Point) of the [EllipticCurve] used.
   PublicKey get publicKey => PublicKey(curve, curve.multiply(value.toBigInt));
 
   /// Create an instance of [PrivateKey] from a valid 32 bytes input.

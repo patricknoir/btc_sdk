@@ -3,6 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
+import 'package:btc_sdk/src/model/bitcoin/extended_private_key.dart';
 
 class ExtendedPublicKey extends PublicKey {
   static const String PATH_MASTER_PUBLIC = "mp";
@@ -22,7 +23,8 @@ class ExtendedPublicKey extends PublicKey {
 
   ExtendedPublicKey(this.chainCode, BigIntPoint point, {this.parentKey, this.parentPath,
       this.index = 0, EllipticCurve? curve, this.network = Network.mainnet}) : super(curve ?? EllipticCurve.secp256k1, point) {
-    path = (parentPath == null) ? PATH_MASTER_PUBLIC : parentPath! + "/" + index.toString();
+    final indexStr = (index < ExtendedPrivateKey.PRIVATE_KEY_HARDENED_MIN_INDEX) ? index.toString() : (index - ExtendedPrivateKey.PRIVATE_KEY_HARDENED_MIN_INDEX).toString() + "'";
+    path = (parentPath == null) ? PATH_MASTER_PUBLIC : parentPath! + "/$indexStr";
   }
 
   factory ExtendedPublicKey.fromCompressedParentPublicKey(Uint8List chainCode, Uint8List compressedPubKey, {EllipticCurve? curve, String? parentPath, int index = 0, Network network = Network.mainnet}) {
@@ -32,7 +34,7 @@ class ExtendedPublicKey extends PublicKey {
     final newChainCode = intermediateKey.sublist(32, 64);
 
     final point = (curve ?? EllipticCurve.secp256k1).multiply(k);
-    return ExtendedPublicKey(newChainCode, point, parentPath: parentPath, curve: curve, network: network);
+    return ExtendedPublicKey(newChainCode, point, parentPath: parentPath, index: index, curve: curve, network: network);
   }
 
   ExtendedPublicKey deriveKey([int index = 0]) {
@@ -41,8 +43,8 @@ class ExtendedPublicKey extends PublicKey {
     final k = intermediateKey.sublist(0, 32).toBigInt;
     final newChainCode = intermediateKey.sublist(32, 64);
 
-    final point = curve.multiply(k);
-    return ExtendedPublicKey(newChainCode, point, parentPath: path, curve: curve);
+    final point2 = curve.multiply(k);
+    return ExtendedPublicKey(newChainCode, curve.add(point, point2), parentPath: path, parentKey: this, index: index, curve: curve, network: network);
   }
 
   /// Serialize an [ExtendedPublicKey].

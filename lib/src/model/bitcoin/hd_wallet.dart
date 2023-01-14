@@ -4,7 +4,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/english.dart';
+import 'package:btc_sdk/src/model/bitcoin/bip39/wordlist/english.dart';
 import 'package:pointycastle/export.dart';
 
 enum MnemonicType {
@@ -50,10 +50,10 @@ class HDWallet {
   ///
   /// The Seed is a 64 bytes value.
   static Uint8List generateSeedFromMnemonic(String mnemonic, {String passphrase = ""}) => Hash.pbkdf2(mnemonic, passphrase: passphrase);
-
-  final Uint8List seed;
   final Uint8List masterPrivateKey;
 
-  HDWallet(this.seed) : masterPrivateKey = Hash.hmacSHA512(BITCOIN_SEED, seed);
+  const HDWallet(this.masterPrivateKey);
+
+  factory HDWallet.fromSeed(Uint8List seed) => HDWallet(Hash.hmacSHA512(BITCOIN_SEED, seed));
 
 }

@@ -42,16 +42,16 @@ class ExtendedPrivateKey extends PrivateKey {
   ///  Given a valid 64 bytes [seed] value, usually obtained from the [Mnemonic] associated
   ///  to an [HDWallet], it creates the **Master** [ExtendedPrivateKey] which can be used
   ///  to generate all the derived [PrivateKey]/[PublicKey] to create and unlock [Transaction]s.
-  factory ExtendedPrivateKey.masterKey(Uint8List seed) {
+  factory ExtendedPrivateKey.masterKey(Uint8List seed, {EllipticCurve? curve, Network network = Network.mainnet}) {
     final longKey = Hash.hmacSHA512(BITCOIN_SEED, seed);
     final masterPrivateKey = longKey.sublist(0, 32);
     final chainCode = longKey.sublist(32, 64);
-    return ExtendedPrivateKey(chainCode, masterPrivateKey);
+    return ExtendedPrivateKey(chainCode, masterPrivateKey, curve: curve, network: network);
   }
 
   bool get isMaster => parentPath == null;
 
-  ExtendedPrivateKey deriveKey({bool hardened = true, int? index}) => hardened ? hardenedChild(index ?? PRIVATE_KEY_HARDENED_MIN_INDEX) : normalChild(index ?? 0);
+  ExtendedPrivateKey deriveKey({bool hardened = true, int? index}) => hardened ? hardenedChild(PRIVATE_KEY_HARDENED_MIN_INDEX + (index ?? 0)) : normalChild(index ?? 0);
 
   /// Create a new instance of an [ExtendedPrivateKey] using the current key as a parent.
   ///
@@ -65,9 +65,9 @@ class ExtendedPrivateKey extends PrivateKey {
     final left = intermediateKey.sublist(0, 32);
     final newChainCode = intermediateKey.sublist(32, 64);
 
-    final newValue = (left.toBigInt + value.toBigInt) % curve.n;
+    final newValue = (value.toBigInt + left.toBigInt) % curve.n;
 
-    return ExtendedPrivateKey(newChainCode, newValue.toUint8List, parentKey: this, parentPath: path, index: index);
+    return ExtendedPrivateKey(newChainCode, newValue.toUint8List, parentKey: this, parentPath: path, index: index, curve: curve, network: network);
   }
 
   /// Create a new instance of an [ExtendedPrivateKey] using the current key as a parent.
@@ -86,17 +86,18 @@ class ExtendedPrivateKey extends PrivateKey {
 
     final newValue = (left.toBigInt + value.toBigInt) % curve.n;
 
-    return ExtendedPrivateKey(newChainCode, newValue.toUint8List, parentKey: this, parentPath: path, index: index);
+    return ExtendedPrivateKey(newChainCode, newValue.toUint8List, parentKey: this, parentPath: path, index: index, curve: curve, network: network);
   }
 
-  @override
-  PublicKey get publicKey => (index < PRIVATE_KEY_HARDENED_MIN_INDEX) ? super.publicKey : throw Exception("Operation not supported on an Hardened Private Key");
+  // @override
+  // PublicKey get publicKey => (index < PRIVATE_KEY_HARDENED_MIN_INDEX) ? super.publicKey : throw Exception("Operation not supported on an Hardened Private Key");
 
   /// Create an [ExtendedPublicKey] associated to this [ExtendedPrivateKey].
   ///
   /// [ExtendedPublicKey] can be used to derive new child [PublicKey] associated to the same [ExtendedPrivateKey].
   /// This allows to create new transaction addresses which can be unlocked by the derivation of the [ExtendedPrivateKey].
-  ExtendedPublicKey get extendedPublicKey => (index < PRIVATE_KEY_HARDENED_MIN_INDEX) ? ExtendedPublicKey(chainCode, publicKey.point, parentPath: path.replaceFirst(PATH_MASTER_PRIVATE, ExtendedPublicKey.PATH_MASTER_PUBLIC), index: index, curve: curve) : throw Exception("Operation not supported on an Hardened Private Key");
+  ExtendedPublicKey get extendedPublicKey => ExtendedPublicKey(chainCode, publicKey.point, parentPath: parentPath?.replaceFirst(PATH_MASTER_PRIVATE, ExtendedPublicKey.PATH_MASTER_PUBLIC), parentKey: parentKey?.extendedPublicKey, index: index, curve: curve, network: network);
+  // ExtendedPublicKey get extendedPublicKey => (index < PRIVATE_KEY_HARDENED_MIN_INDEX) ? ExtendedPublicKey(chainCode, publicKey.point, parentPath: path.replaceFirst(PATH_MASTER_PRIVATE, ExtendedPublicKey.PATH_MASTER_PUBLIC), index: index, curve: curve) : throw Exception("Operation not supported on an Hardened Private Key");
 
   /// Serialize an [ExtendedPrivateKey].
   /// The [ExtendedPrivateKey] serialization is a string in Base58 containing:

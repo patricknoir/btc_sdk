@@ -123,12 +123,15 @@ And due to the way elliptic curve mathematics works, the child private key will 
 
 A serialized key contains the following fields:
 
-- 4 bytes	Version	Places “xprv” 0488ade4 or “xpub” 0488b21e at the start.
-- 1 byte	Depth	How many derivations deep this extended key is from the master key.
-- 4 bytes	Parent Fingerprint	The first 4 bytes of the hash160 of the parent’s public key. This helps to identify the parent later.
-- 4 bytes	Child Number	The index number of this child from the parent.
-- 32 bytes	Chain Code	The extra 32 byte secret. This prevents others from deriving child keys without it.
-- 33 bytes	Key	The private key (prepend 0x00) or public key.
+| Size     | Field              | Description                                                                                             |
+|----------|--------------------|---------------------------------------------------------------------------------------------------------|
+| 4 Bytes  | Version            | Places `xprv` `0488ade4` or `xpub` `0488b21e` at the start.                                             |
+| 1 Byte   | Depth              | How many derivations deep this extended key is from the master key.                                     |
+| 4 Bytes  | Parent Fingerprint | The first 4 bytes of the `hash160` of the parent’s public key. This helps to identify the parent later. |
+| 4 Bytes  | Child Number       | The index number of this child from the parent.                                                         |
+| 32 Bytes | Chain Code         | The extra 32 byte secret. This prevents others from deriving child keys without it.                     |
+| 33 Bytes | Key                | The private key (prepend `0x00`) or public key.                                                         |
+
 
 >**Notes**
 > 
