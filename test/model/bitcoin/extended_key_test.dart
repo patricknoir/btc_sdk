@@ -102,6 +102,7 @@ void main() {
       final prvChild0 = masterPrvKey.deriveKey(hardened: false, index: 0);
       final pubChild0 = masterPubKey.deriveKey(0);
       expect(prvChild0.extendedPublicKey.serialize, pubChild0.serialize);
+      expect(prvChild0.extendedPublicKey.path, pubChild0.path); // mp/0
       // expect(prvChild0H.serialize, "xprv9uHRZZhk6KAJC1avXpDAp4MDc3sQKNxDiPvvkX8Br5ngLNv1TxvUxt4cV1rGL5hj6KCesnDYUhd7oWgT11eZG7XnxHrnYeSvkzY7d2bhkJ7");
       // expect(prvChild0H.path, "m/0'");
       // expect(prvChild0H.extendedPublicKey.serialize, "xpub68Gmy5EdvgibQVfPdqkBBCHxA5htiqg55crXYuXoQRKfDBFA1WEjWgP6LHhwBZeNK1VTsfTFUHCdrfp1bgwQ9xv5ski8PX9rL2dZXvgGDnw");
