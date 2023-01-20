@@ -24,6 +24,32 @@ class PublicKey extends Equatable {
 
   factory PublicKey.from(EllipticCurve curve, BigInt x, BigInt y) => PublicKey(curve, BigIntPoint(x: x, y: y));
 
+  /// Parse a public key from its SEC format, with a prefix specifying if the key is uncompressed or compressed.
+  /// In case of compressed SEC, it resolves the [curve] equation and discriminate which of the 2 y values should be used (odd or even).
+  factory PublicKey.fromSEC(EllipticCurve curve, Uint8List secData) => (secData.elementAt(0) == UNCOMPRESSED_PREFIX) ? _fromUncompressed(secData, curve) : _fromCompressed(secData, curve);
+
+  static PublicKey _fromCompressed(Uint8List secData, EllipticCurve curve) {
+    assert(secData.length == 33);
+    assert(secData.elementAt(0) == COMPRESSED_EVEN_PREFIX || secData.elementAt(0) == COMPRESSED_ODD_PREFIX);
+    final isEven = secData.elementAt(0) == COMPRESSED_EVEN_PREFIX;
+    final x = secData.sublist(1).toBigInt;
+    final ys = curve.apply(x);
+    final yEven = ys.value1.isEven ? ys.value1 : ys.value2;
+    final yOdd = ys.value1.isOdd ? ys.value1 : ys.value2;
+    assert(yEven.isEven);
+    assert(yOdd.isOdd);
+    return PublicKey.from(curve, x, isEven ? yEven : yOdd);
+  }
+  
+  static PublicKey _fromUncompressed(Uint8List data, EllipticCurve curve) {
+    assert(data.length == 1 + 32 + 32); //length
+    assert(data.elementAt(0) == UNCOMPRESSED_PREFIX);
+    return PublicKey.from(curve, data.sublist(1, 33).toBigInt, data.sublist(33).toBigInt);
+  }
+
+  
+  Uint8List toSEC({bool compress: false}) => compress ? compressed : uncompressed;
+
   /// Serialize the `point.x` and `point.y` of the [PublicKey] prefixed by the [PublicKey.UNCOMPRESSED_PREFIX].
   Uint8List get uncompressed => [UNCOMPRESSED_PREFIX].toUint8List.concat(point.x.toRadixString(16).toUint8ListFromHex!).concat(point.y.toRadixString(16).toUint8ListFromHex!);
   /// The compressed [PublicKey] takes only the coordinate `point.x` of the [PublicKey] prefixed by [PublicKey.COMPRESSED_EVEN_PREFIX] if the

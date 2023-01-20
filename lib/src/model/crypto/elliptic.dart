@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 
 /// An elliptic curve is a set of points described by the equation `y² = x³ + ax + b mod p`, so this is where the a and b variables come from. Different curves will have different values for these coefficients, and a=0 and b=7 are the ones specific to [EllipticCurve.secp256k1].
@@ -105,6 +107,30 @@ class EllipticCurve extends Equatable {
     return current;
   }
 
+  /// This is valid for [secp256k1] because p % 4 = 3.
+  /// if w² = value and p % 4 = 3, w = value^(p+1)/4
+  BigIntTuple sqrt(BigInt value) {
+    assert(p % BigInt.from(4) == BigInt.from(3));
+    final v1 = value.modPow((p + BigInt.one) ~/ BigInt.from(4), p);
+    final v2 = p - v1;
+    return BigIntTuple(v1, v2);
+  }
+
+  /// Resolve the [curve] equation:
+  ///
+  /// `y² = x³ + ax + b mod p`
+  ///
+  /// by applying the passed [x] value.
+  ///
+  /// Two possible values are returned, which represents
+  /// the `sqrt(y²): y and (-y)`.
+  /// Because we are in a modular field: `(-y)` is the inverse of `y` whih means `(-y) = p - y`.
+  /// Because `p` is prime then if `y` is even `(-y)` is odd and vice versa.
+  BigIntTuple apply(BigInt x) {
+    final v = (x.pow(3) + (a * x) + b) % p;
+    return sqrt(v);
+  }
+
   @override
   List<Object?> get props => [a,b,p,n,G];
 }
@@ -139,4 +165,14 @@ class Modulus {
 
     return a.modInverse(p);
   }
+}
+
+class BigIntTuple extends Equatable {
+  final BigInt value1;
+  final BigInt value2;
+
+  const BigIntTuple(this.value1, this.value2);
+
+  @override
+  List<Object?> get props => [value1, value2];
 }

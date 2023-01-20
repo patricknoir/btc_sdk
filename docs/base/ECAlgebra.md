@@ -75,7 +75,7 @@ The **Identity Point** respect the *Invertibility* property such as:
 Visually these **Points** are symmetrically one to the another respect the 'x-asis' and identified by
 a vertical line intercepting the curve.
 
-We assume this vertival line intersect the curve on a third point at *Infinity*, for this reason
+We assume this vertical line intersect the curve on a third point at *Infinity*, for this reason
 we also call the *Identity* also as *Point at Infinity*.
 
 ![Inverse](images/ECAlgebra-02.png)
@@ -86,7 +86,7 @@ Given 2 generic points in the curve A and B then is also true the below:
 
 `A + B = B + A = C`
 
-Given 2 points defined in the curve: `A` and `B`, independently from their order
+Given 2 points defined in the curve: `A` and `B`, independently of their order
 the line associated will intercept always the curve on a same point `C`.
 
 #### Associativity
@@ -108,7 +108,7 @@ the addition the result, will always be the same:
 > 
 > ![A + (B + C)](images/ECAlgebra-04.png)
 > 
-> - We start with the *red line*, defined the point `B` and `C` we obtaine the `(B + C)` point
+> - We start with the *red line*, defined the point `B` and `C` we obtain the `(B + C)` point
 > - Given the 2 points `A` and `(B + C)` we define a new line and derive the new point `A + (B + C)`. 
 
 

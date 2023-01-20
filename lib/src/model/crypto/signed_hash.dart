@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -16,7 +18,7 @@ class SignedHash extends Equatable {
 
   /// Private constructor to instantiate a [SignedHash] with the original message as [hash] and
   /// its signature points [r] and [s].
-  const SignedHash._(this.hash, this.r, this.s);
+  const SignedHash(this.hash, this.r, this.s);
 
   /// Given the [hash], the [PrivateKey] to use to sign the [hash], it creates an instance of [SignedHash].
   ///
@@ -37,7 +39,7 @@ class SignedHash extends Equatable {
     // s = nonce⁻¹ * (hash + private_key * r) mod n
     final s = nonce.modInverse(prvKey.curve.n) * (hash.toBigInt + prvKey.value.toBigInt * r) % prvKey.curve.n;
 
-    return SignedHash._(hash, r, s);
+    return SignedHash(hash, r, s);
   }
 
   /// Verifies if this [SignedHash] instance was signed using the [PrivateKey] associated to the passed [PublicKey].
@@ -64,4 +66,51 @@ class SignedHash extends Equatable {
   @override
   List<Object?> get props => [hash, r, s];
 
+  static const int DER_MARKER = 0x30;
+  static const int DER_R_MARKER = 0x02;
+  static const int DER_S_MARKER = 0x02;
+
+  /// <DER_MARKER><Length><DER_R_MARKER><R.Length>[[<0x00>]]<R_VALUE><DER_S_MARKER><S.Length>[[<0x00>]]<S_VALUE>
+  Uint8List toDER() {
+    var encodedR = r.toUint8List;
+    if(encodedR.first >= 0x80) {
+      encodedR = [0x00].toUint8List.concat(encodedR);
+    }
+
+    final segmentR = [DER_R_MARKER].toUint8List.concat(encodedR.length.to8Bits().concat(encodedR));
+
+    var encodedS = s.toUint8List;
+    if(encodedS.first >= 0x80) {
+      encodedS = [0x00].toUint8List.concat(encodedS);
+    }
+
+    final segmentS = [DER_S_MARKER].toUint8List.concat(encodedS.length.to8Bits().concat(encodedS));
+
+    Uint8List segment = segmentR.concat(segmentS);
+    segment = segment.length.to8Bits().concat(segment);
+
+    return [DER_MARKER].toUint8List.concat(segment);
+  }
+
+  factory SignedHash.fromDER(Uint8List hash, Uint8List signature) {
+    // <DER_MARKER><Length><DER_R_MARKER><R.Length>[[<0x00>]]<R_VALUE><DER_S_MARKER><S.Length>[[<0x00>]]<S_VALUE>
+    assert(signature.elementAt(0) == DER_MARKER);
+    assert(signature.elementAt(1) == signature.sublist(2).length);
+    assert(signature.elementAt(2) == DER_R_MARKER);
+
+    var segmentR = signature.sublist(4, 4 + signature.elementAt(3));
+    assert(segmentR.first == 0x00 ? segmentR.elementAt(1) >= 0x80 : segmentR.elementAt(0) < 0x80);
+    segmentR = (segmentR.elementAt(0) == 0x00) ? segmentR.sublist(1) : segmentR;
+    final r = segmentR.toBigInt;
+
+    final endSegment = signature.sublist(4 + signature.elementAt(3));
+    assert(endSegment.first == DER_S_MARKER);
+    var segmentS = endSegment.sublist(2);
+    assert(endSegment.elementAt(1) == segmentS.length);
+    assert(segmentS.first == 0x00 ? segmentS.elementAt(1) >= 0x80 : segmentS.elementAt(0) < 0x80);
+    segmentS = (segmentS.elementAt(0) == 0x00) ? segmentS.sublist(1) : segmentS;
+    final s = segmentS.toBigInt;
+
+    return SignedHash(hash, r, s);
+  }
 }

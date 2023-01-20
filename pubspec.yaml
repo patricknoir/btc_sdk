@@ -19,3 +19,4 @@ dependencies:
   fast_base58: ^0.2.1
   hex: ^0.2.0
   pointycastle: ^3.6.2
+  stack: ^0.2.1

@@ -179,3 +179,54 @@ Anyway, here’s what elliptic curve multiplication looks like when using the do
     return current;
   }
 ```
+
+#### SQRT
+
+> **Valid only for secp256k1 as p % 3 = 1.**
+
+Stated mathematically:
+
+> Find w such that w2 = v when we know v.
+> 
+> It turns out that if the finite field prime p % 4 = 3, we can do this rather easily. Here’s how.
+
+First, we know: 
+
+> p % 4 = 3
+
+which implies:
+
+> (p + 1) % 4 = 0
+> 
+> then (p + 1)/4 is an integer. 
+
+By definition:
+
+> w² = v
+
+We are looking for a formula to calculate w. From Fermat’s little theorem:
+
+> w^(p–1) % p = 1 
+
+which means:
+
+> w² = w² ⋅ 1 = w² ⋅ w^(p–1) = w^(p+1)
+
+Since p is odd (recall p is prime), we know we can divide (p+1) by 2 and still get an
+integer, implying: 
+
+> w = w^(p+1)/2
+
+Now we can use (p+1)/4 being an integer this way: 
+
+> w = w^(p+1)/2 = w²^(p+1)/4 = (w²)^(p+1)/4 = v(p+1)/4
+
+So our formula for finding the square root becomes:
+
+> if w² = v and p % 4 = 3, w = v^(p+1)/4
+
+It turns out that the p used in secp256k1 is such that p % 4 == 3, so we can use this
+
+> formula: w² = v
+>
+> w = v^(p+1)/4
