@@ -126,21 +126,6 @@ expect('3yQ'.fromBase58?.buffer.asByteData().getInt16(0), 9999);
 In blockchain and bitcoin wallets, there are lots of operations which require the manipulation of array of bytes, such as concatenation of arrays, appending elements, converting little endian to big endians, having var sized buffers.
 For this reason we have introduced a new Buffer type used to manipulate Uint8List types.
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
-
 ### Used Libraries
 
 - bip39: used to generate mnemonic words to seed. Mnemonic are 12 words text used to recovery the seed key for a non-custodial wallet.
