@@ -20,7 +20,7 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
 
-Check the documentation index [here](docs/Index.md).
+Check the documentation index [here](documentation/Index.md).
 
 ## Types
 

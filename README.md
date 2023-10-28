@@ -9,11 +9,11 @@ which might need to use BTC and ETH non-custodial wallets.
 
 Released under the terms of the [MIT LICENSE](LICENSE).
 
-Check the documentation index [here](docs/Index.md).
+Check the documentation index [here](documentation/Index.md).
 
 ## Documentation
 
-Read the full documentation [here](docs/Index.md).
+Read the full documentation [here](documentation/Index.md).
 
 ## Types
 
