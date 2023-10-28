@@ -12,7 +12,7 @@ enum UintType {
   const UintType(this.bytes);
 }
 
-/// Represent a generic integer value which could be either Uint8, Uint16, Uint32 or Uint64.
+/// Represent a generic unsigned integer value which could be either Uint8, Uint16, Uint32 or Uint64.
 class Uint extends Equatable {
 
   static const minUint8Value = 0;
@@ -32,6 +32,7 @@ class Uint extends Equatable {
   late final UintType type;
   late final Uint8List list;
 
+  /// Creates a Uint from a provided integer value. This constructor will fail if the integer value is negative.
   Uint(this.value) {
     assert(value > 0);
     _init();

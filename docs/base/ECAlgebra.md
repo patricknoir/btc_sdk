@@ -1,10 +1,10 @@
 # Elliptic Curve Algebra
 
-Are curves defined by the following equation:
+Elliptic curves are curves defined by the following equation:
 
 `y² = x³ + ax + b`
 
-They are like cubical equation but they smooth aroun the origin of the `x` and they are 
+They are like cubical equation, but they smooth around the origin of the `x` and they are 
 symmetric due to the quadratic value of the `y`.
 
 ## ECPoint

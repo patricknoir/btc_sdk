@@ -51,7 +51,7 @@ extension Uint8ListExtensions on Uint8List {
   Uint8List? appendInt(int value) {
     Uint8List? element = value.toUint?.toUint8List;
     if(element != null) {
-      return concat(element!);
+      return concat(element);
     }
     return null;
   }

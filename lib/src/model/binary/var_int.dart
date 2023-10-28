@@ -7,6 +7,21 @@ import 'package:equatable/equatable.dart';
 /// A VarInt is a variable length field 1, 3, 5 or 9 bytes in length dependent on the size of the object being defined. The VarInt format is used as it is space efficient over simply using an 8-byte field where variable length objects are used.
 class VarInt extends Equatable {
 
+  static bool isValid(int flag, Uint8List value) {
+    switch(flag) {
+      case 0xFD:
+        return value.length == 1;
+      case 0xFC:
+        return value.length == 2;
+      case 0xFE:
+        return value.length == 4;
+      case 0xFF:
+        return value.length == 8;
+      default:
+        return (flag < 0xFD) ? value.length == 1 : false;
+    }
+  }
+
   final int flag;
   final int value;
 
