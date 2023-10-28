@@ -4,6 +4,19 @@
 
 A `Uint` type represents a generic unsigned integer value which could be either `Uint8`, `Uint16`, `Uint32` or `Uint64`.
 
+This library makes extensive usage of the dart default library Uint8List. A Uint8List is just an array of bytes, where each entry of the list is a single byte (8 bits). 
+There are several operations we want to do with a Uint8List, mainly we want to write bytes using the int base type. 
+An int in dart can be either int8, int16, int32 or int64. Depending on the value of the int variable this can be translated into a Uint8List of different size as per the below table:
+
+| Bytes                                   | Data Type	            | Int range	      | Uint8List Length       |
+|-----------------------------------------|-----------------------|-----------------|------------------------|
+| 1 byte = 8 bits                         | 	Uint8                | 	0 - 255        | 	Uint8List of length 1 |
+| 2 bytes = 16 bits	                      | Uint16                | 	0 - 65535      | 	Uint8List of length 2 |
+| 4 bytes = 32 bits                       | Uint32                | 	0 - 4294967295 | Uint8List of length 3  |
+| 8 bytes = 64 bits	Uint64	0 - (2^64 - 1) | Uint8List of length 4 |
+
+We have defined a new type called Uint which can easily be converted into Uint8List and can be used to write value into the Uint8List.
+
 ```dart 
 class Uint extends Equatable {
   final int value;
@@ -15,24 +28,15 @@ class Uint extends Equatable {
 `Uint` can be converted into `Uint8List` type through the getter method:
 
 ```dart
-Uint8List get toUint8List
+Uint8List get toUint8List;
 ```
-
-Depending of the value of the provided integer value the `Uint8List` will have a different size based on the below table.
-
-| `value`                      | `UintType` | `Uint8List` length |
-|------------------------------|------------|--------------------|
-| 0 ≤ `value` ≤ 255            | *uint8*    | 1                  |
-| 255 < `value` ≤ 65535        | *uint16*   | 2                  |
-| 65535 < `value` ≤ 4294967295 | *uint32*   | 4                  |
-| 4294967295 < `value`         | *uint64*   | 8                  |
 
 ## Conversions
 
 `int` types can be converted into `Uint` by using this extension method:
 
 ```dart
-extension IntToVarUint on int {
+extension IntToUint on int {
   Uint? get toUint => (this >= 0) ? Uint(this) : null;
 }
 ```

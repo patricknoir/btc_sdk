@@ -27,6 +27,7 @@ void main() {
     });
     test('Throws assertion error when negative int is provided as input', () {
       expect(() => Uint(-4), throwsA(isA<AssertionError>()));
+      expect((-4).toUint, null);
     });
   });
 }

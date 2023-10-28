@@ -68,6 +68,6 @@ class Uint extends Equatable {
 
 }
 
-extension IntToVarUint on int {
+extension IntToUint on int {
   Uint? get toUint => (this >= 0) ? Uint(this) : null;
 }
