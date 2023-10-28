@@ -1,6 +1,6 @@
 # Private Key
 
-A private key is a random number. It is a 256 bits (32 Bytes = Uint32) number.
+A private key is a random number. It is a 256 bits (32 Bytes) number.
 
 It is used as the source of a public key.
 
@@ -12,13 +12,13 @@ It is used as the source of a public key.
 > max = 115792089237316195423570985008687907852837564279074904382605163141518161494336
 > ```
 >
-> This number is n-1, where n is the number of points on the elliptic curve used in Bitcoin. So when you generate a 256 bit number, you will want to check that it’s not above this maximum value.
+> This number is n-1, where n is the number of points on the elliptic curve used in Bitcoin. So when you generate a 256 bits number, you will want to check that it’s not above this maximum value.
 
 ## Formats
 
-A hexadecimal private key is 32 bytes (64 characters):
+A hexadecimal private key is 32 bytes (64 hex characters):
 
-```bash
+```
 ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2
 ```
 However, you can convert your private key to a **WIF Private Key**, which basically makes it easier to copy and import in to wallets.
@@ -36,7 +36,7 @@ A WIF private key is a standard private key, but with a few added extras:
     - 0x01
 3. [Checksum](Checksum.md) - Useful for detecting errors/typos when you type out your private key.
 
-This is all then converted to Base58, which shortens the entire thing and makes it easier to transcribe…
+This is all then converted to Base58, which shortens the entire thing and makes it easier to transcribe.
 
 ## Generating the PublicKey
 
@@ -51,5 +51,10 @@ PublicKey pubKey = EllipticCurve.secp256k1.G * prvKey;
 expect(prvKey.toUint8List.toHex, '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'.toLowerCase());
 
 ```
+> **Note**: the `PrivateKey.fromSeed` takes a String as seed, converts it into an array f bytes using the UTF8 encoding and then converted into a 256 bits number using the SHA-256 encoding function.
 
 Fore more details check the [Public Key](PublicKey.md) documentation.
+
+## Examples
+
+To learn more about **Private Keys** refers to the test class [here](../test/model/crypto/private_key_test.dart).

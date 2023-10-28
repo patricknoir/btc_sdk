@@ -25,7 +25,7 @@ This is a nickname for one of the specific curves used in elliptic curve cryptog
 
 There are a few mathematical operations that you can perform on points on the elliptic curve. The main two operations are `double()` and `add()`, and these can then be combined to perform `multiply()`.
 
-These operations are the building blocks of elliptic curve cryptography, and they are used for generating `public keys` and signatures in ECDSA.
+These operations are the building blocks of elliptic curve cryptography, and they are used for generating `public keys` and signatures in ECDSA:
 
 - Modular Inverse 
 - Double 
@@ -80,6 +80,8 @@ class Modulus {
 
 From a visual perspective, to “double” a point you draw a tangent to the curve at the given point, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
 
+![Geometric explanation](images/EllipticCurves-Double.png "Double Point")
+
 ```dart
   BigIntPoint double(BigIntPoint point) {
     // slope = (3x₁² + a) / 2y₁ = (3x₁² + a) * inverse(2y₁)
@@ -100,6 +102,8 @@ From a visual perspective, to “double” a point you draw a tangent to the cur
 As expected, “addition” of two points in elliptic curve mathematics isn’t the same as straightforward integer addition, but it’s called “addition” anyway.
 
 From a visual perspective, to “add” two points together you draw a line between them, then find the point on the curve this line intersects (there will only be one), then take the reflection of this point across the x-axis.
+
+![Geometric explanation](images/ECAlgebra-01.png "Point Addition")
 
 ```dart
   BigIntPoint add( BigIntPoint point1, BigIntPoint point2) {

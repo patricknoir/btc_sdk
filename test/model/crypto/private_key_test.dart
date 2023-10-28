@@ -8,6 +8,7 @@ void main() {
       expect(pk1.toUint8List.length, 32);
       expect(pk1.toUint8List, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
 
+      // The input Uint8List of 64 bytes should be truncated to the lower 32 bits, the outcome of using data64 to generate pk2 should be the same as pk1.
       final data64 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1].toUint8List;
       PrivateKey pk2 = PrivateKey(data64);
       expect(pk2.toUint8List.length, 32);
@@ -19,6 +20,7 @@ void main() {
       expect(pk1.toUint8List.length, 32);
       expect(pk1.toUint8List, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
 
+      // As the HEX representation is bigger than 32 bytes, the hex number will be truncated containing the lowest 32 bytes, as an outcome pk2 will be equivalent to pk1
       PrivateKey pk2 = PrivateKey.parseHex('ffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000001');
       expect(pk2.toUint8List.length, 32);
       expect(pk2.toUint8List, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);

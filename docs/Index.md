@@ -11,9 +11,10 @@
 2. ### Elliptic Curves
    2.1 [Finite Fields](base/FiniteField.md)
 
-   2.2 [Introduction to Elliptic Curves](base/EllipticCurves.md)
+   2.2 [Modelling Elliptic Curves Algebra](base/ECAlgebra.md)
 
-   2.3 [Modelling Elliptic Curves Algebra](base/ECAlgebra.md)
+   2.3 [Introduction to Elliptic Curves](base/EllipticCurves.md)
+
 3. ### Basic Cryptography
    3.1 [Private Keys](PrivateKey.md)
 
