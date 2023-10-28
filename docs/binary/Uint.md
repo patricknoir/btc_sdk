@@ -45,7 +45,7 @@ If the int value is negative it returns null.
 
 ## Examples
 
-From the 'uint_test.dart' file that can be found [here](../test/model/binary/uint_test.dart).
+From the 'uint_test.dart' file that can be found [here](../../test/model/binary/uint_test.dart).
 
 ```dart
 Uint uint8 = Uint(32);

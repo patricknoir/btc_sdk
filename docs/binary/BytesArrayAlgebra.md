@@ -2,14 +2,14 @@
 
 ## Introduction
 
-This document will describe the Bytes Array data type and the functions and operations implemented in this library to work effectiively with this type.
-The Bytes Array plays a key role in any blockchain application, as wallet and transactions are making heavy usage ot bytes array encoding and manipulation.
+This document will describe the Bytes Array data type and the functions and operations implemented in this library to work effectively with this type.
+The Bytes Array plays a key role in any blockchain application, as wallet and transactions are making heavy usage of bytes array encoding and manipulation.
 
 In the following sections we will cover the key topics:
 
-1. Basic Types: bit, Bytes and int
-2. Bytes Array and Encodings
-3. Transaction Types
+1. **Basic Types**: bit, Bytes and int
+2. **Bytes Array** and **Encoding**
+3. **Transaction Types**
 
 ### Basic Types: bit, Bytes and int
 

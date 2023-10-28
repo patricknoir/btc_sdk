@@ -3,7 +3,7 @@
 A public key is a point in the elliptic curve obtained by the multiplication of the private key value
 with the generator point of the curve adopted.
 
-In cryptography the most used curve is the secp256k1 as discussed in the [EllipticCurves](EllipticCurves.md) page.
+In cryptography the most used curve is the secp256k1 as discussed in the [EllipticCurves](base/EllipticCurves.md) page.
 
 ```dart
 final curve = EllipticCurve.secp256k1;

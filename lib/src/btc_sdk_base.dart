@@ -8,6 +8,7 @@ import 'package:hex/hex.dart';
 
 import 'model/binary/uint.dart';
 
+/// Enable a [BigInt] type to be converted in a list of bytes as [Uint8List].
 extension BigIntExtensions on BigInt {
 
   /// Convert the current [BigInt] in a [Uint8List]
@@ -15,7 +16,11 @@ extension BigIntExtensions on BigInt {
 
 }
 
+/// Provides conversion functions to get a String representation of a number value with a specific encoding to be transformed into a [Uint8List].
+/// This extension will help to convert from Hex, Base58, UTF8 to the equivalent [Uint8List].
 extension StringExtensions on String {
+
+  /// Nullable converter that taken a [String] containing the **HEX** representation of a number, will return the equivalent [Uint8List].
   Uint8List? get toUint8ListFromHex {
     try {
       return HEX.decode(this).toUint8List;
@@ -24,6 +29,7 @@ extension StringExtensions on String {
     }
   }
 
+  /// Nullable converter that taken a [String] containing the [**Base58**](../docs/binary/BytesArrayAlgebra.md) representation of a number, will return the equivalent [Uint8List].
   Uint8List? get toUint8ListFromBase58 {
     try {
       return Base58Decode(this).toUint8List;
@@ -32,6 +38,7 @@ extension StringExtensions on String {
     }
   }
 
+  /// Converter that taken a [String] containing the **HEX** representation of a number, will return the equivalent [Uint8List].
   Uint8List get toUint8ListFromUtf8 => utf8.encode(this).toUint8List;
 }
 

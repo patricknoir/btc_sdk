@@ -25,13 +25,13 @@ Each `finite field` is defined by the `order`, which represents the biggest elem
 
 > **Note**
 > 
-> > in the F₇ the value `-2` is by definition:
-> > ```
-> > -2 + ? = 0 in F₇ 
-> > -2 + ? = 7 => ? = 7 - 2 = 5
-> > 
+> in the F₇ the value `-2` is by definition:
+> ```
+> -2 + ? = 0 in F₇ 
+> -2 + ? = 7 => ? = 7 - 2 = 5
+> ```
 > `-2` is equivalent to write `5` in F₇
-> > ```
+
 
 
 

@@ -50,7 +50,7 @@ VarInt parsedVarInt1 = VarInt.parse([253, 0, 255].toUint8List
 
 >**NOTE**
 >
->for a full list of examples refers to the test class [here](../test/model/binary/var_int_test.dart)
+>for a full list of examples refers to the test class [here](../../test/model/binary/var_int_test.dart)
 
 ### Wrapping VALUE
 
@@ -65,7 +65,7 @@ VarInt varint4 = VarInt.fromValue(134250981); //0x80081E5
 
 >**NOTE**
 >
->for a full list of examples refers to the test class [here](../test/model/binary/var_int_test.dart)
+>for a full list of examples refers to the test class [here](../../test/model/binary/var_int_test.dart)
 
 
 
