@@ -1,6 +1,6 @@
 name: btc_sdk
 description: A starting point for Dart libraries or applications.
-version: 1.0.0
+version: 0.1.0
 # homepage: https://www.example.com
 
 environment:
@@ -20,3 +20,6 @@ dependencies:
   hex: ^0.2.0
   pointycastle: ^3.6.2
   stack: ^0.2.1
+
+documentation: "https://github.com/patricknoir/btc_sdk/blob/master/docs/Index.md"
+repository: "https://github.com/patricknoir/btc_sdk"

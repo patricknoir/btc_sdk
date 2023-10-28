@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the WifPrivateKey class from the btc_sdk library, for the Dart programming language.">
+  <title>WifPrivateKey class - btc_sdk library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">btc_sdk</a></li>
+    <li><a href="../btc_sdk/btc_sdk-library.html">btc_sdk</a></li>
+    <li class="self-crumb">WifPrivateKey class</li>
+  </ol>
+  <div class="self-name">WifPrivateKey</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-class">WifPrivateKey</span> class 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Wallet Import Format PrivateKey</p>
+<p>WIF PrivateKey are used to be exported/imported from/to non custodial wallets.
+They are specific for a bitcoin <a href="../btc_sdk/Network.html">Network</a> and they can be used to generate compressed/uncompressed public keys</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark clazz-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="../btc_sdk/PrivateKey-class.html">PrivateKey</a></li>
+      <li>WifPrivateKey</li>
+    </ul>
+  </dd>
+
+        
+        
+
+
+
+        
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="WifPrivateKey" class="callable">
+          <span class="name"><a href="../btc_sdk/WifPrivateKey/WifPrivateKey.html">WifPrivateKey</a></span><span class="signature">(<span class="parameter" id="-param-network"><span class="type-annotation"><a href="../btc_sdk/Network.html">Network</a></span> <span class="parameter-name">network</span>, </span><span class="parameter" id="-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a></span> <span class="parameter-name">value</span>, </span><span class="parameter" id="-param-isCompressed"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isCompressed</span>, </span><span class="parameter" id="-param-curve">{<span class="type-annotation"><a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a>?</span> <span class="parameter-name">curve</span>}</span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+        <dt id="WifPrivateKey.parseBase58Check" class="callable">
+          <span class="name"><a href="../btc_sdk/WifPrivateKey/WifPrivateKey.parseBase58Check.html">WifPrivateKey.parseBase58Check</a></span><span class="signature">(<span class="parameter" id="parseBase58Check-param-wifPVKH"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">wifPVKH</span>, </span><span class="parameter" id="parseBase58Check-param-curve">{<span class="type-annotation"><a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a>?</span> <span class="parameter-name">curve</span>}</span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="curve" class="property inherited">
+  <span class="name"><a href="../btc_sdk/PrivateKey/curve.html">curve</a></span>
+  <span class="signature">&#8596; <a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">late, final, inherited</div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="isCompressed" class="property">
+  <span class="name"><a href="../btc_sdk/WifPrivateKey/isCompressed.html">isCompressed</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="network" class="property">
+  <span class="name"><a href="../btc_sdk/WifPrivateKey/network.html">network</a></span>
+  <span class="signature">&#8594; <a href="../btc_sdk/Network.html">Network</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="publicKey" class="property inherited">
+  <span class="name"><a href="../btc_sdk/PrivateKey/publicKey.html">publicKey</a></span>
+  <span class="signature">&#8594; <a href="../btc_sdk/PublicKey-class.html">PublicKey</a></span> 
+
+</dt>
+<dd class="inherited">
+  The publicKey is the <a href="../btc_sdk/BigIntPoint-class.html">BigIntPoint</a> in the <a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a> obtained by multiplying the <a href="../btc_sdk/PrivateKey/value.html">PrivateKey.value</a> by <code>curve.G</code> point (Generator Point) of the <a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a> used.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="toUint8List" class="property inherited">
+  <span class="name"><a href="../btc_sdk/PrivateKey/toUint8List.html">toUint8List</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a></span> 
+
+</dt>
+<dd class="inherited">
+  Return a <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a> representation for this key
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="toWif" class="property">
+  <span class="name"><a href="../btc_sdk/WifPrivateKey/toWif.html">toWif</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  Return the <a href="../btc_sdk/PrivateKey-class.html">PrivateKey</a> in the WIF Compressed/Uncompressed (Wallet Import Format) for a specific bitcoin <a href="../btc_sdk/Network.html">Network</a>.
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="value" class="property inherited">
+  <span class="name"><a href="../btc_sdk/PrivateKey/value.html">value</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a></span> 
+
+</dt>
+<dd class="inherited">
+  Private Key secret number
+  <div class="features">final, inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toWifPrivateKey" class="callable inherited">
+  <span class="name"><a href="../btc_sdk/PrivateKey/toWifPrivateKey.html">toWifPrivateKey</a></span><span class="signature">(<wbr><span class="parameter" id="toWifPrivateKey-param-network"><span class="type-annotation"><a href="../btc_sdk/Network.html">Network</a></span> <span class="parameter-name">network</span>, </span><span class="parameter" id="toWifPrivateKey-param-isCompressed"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isCompressed</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../btc_sdk/WifPrivateKey-class.html">WifPrivateKey</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  <section class="summary offset-anchor" id="constants">
+    <h2>Constants</h2>
+
+    <dl class="properties">
+        <dt id="COMPRESSION_BYTE" class="constant">
+    <span class="name "><a href="../btc_sdk/WifPrivateKey/COMPRESSION_BYTE-constant.html">COMPRESSION_BYTE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x01</code></span>
+  </div>
+</dd>
+
+        <dt id="WIF_COMPRESSED_PRIVATE_KEY_LENGTH" class="constant">
+    <span class="name "><a href="../btc_sdk/WifPrivateKey/WIF_COMPRESSED_PRIVATE_KEY_LENGTH-constant.html">WIF_COMPRESSED_PRIVATE_KEY_LENGTH</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH + 1</code></span>
+  </div>
+</dd>
+
+        <dt id="WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH" class="constant">
+    <span class="name "><a href="../btc_sdk/WifPrivateKey/WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH-constant.html">WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>1 + 32 + 4</code></span>
+  </div>
+</dd>
+
+    </dl>
+  </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">btc_sdk</a></li>
+  <li><a href="../btc_sdk/btc_sdk-library.html">btc_sdk</a></li>
+  <li class="self-crumb">WifPrivateKey class</li>
+</ol>
+
+
+    <h5>btc_sdk library</h5>
+    <ol>
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#classes">Classes</a></li>
+  <li><a href="../btc_sdk/Address-class.html">Address</a></li>
+  <li><a href="../btc_sdk/BigIntPoint-class.html">BigIntPoint</a></li>
+  <li><a href="../btc_sdk/BigIntTuple-class.html">BigIntTuple</a></li>
+  <li><a href="../btc_sdk/Buffer-class.html">Buffer</a></li>
+  <li><a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a></li>
+  <li><a href="../btc_sdk/Hash-class.html">Hash</a></li>
+  <li><a href="../btc_sdk/Modulus-class.html">Modulus</a></li>
+  <li><a href="../btc_sdk/PBKDF2-class.html">PBKDF2</a></li>
+  <li><a href="../btc_sdk/PrivateKey-class.html">PrivateKey</a></li>
+  <li><a href="../btc_sdk/PublicKey-class.html">PublicKey</a></li>
+  <li><a href="../btc_sdk/SignedHash-class.html">SignedHash</a></li>
+  <li><a href="../btc_sdk/Uint-class.html">Uint</a></li>
+  <li><a href="../btc_sdk/VarInt-class.html">VarInt</a></li>
+  <li><a href="../btc_sdk/WifPrivateKey-class.html">WifPrivateKey</a></li>
+
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#extensions">Extensions</a></li>
+  <li><a href="../btc_sdk/BigIntExtensions.html">BigIntExtensions</a></li>
+  <li><a href="../btc_sdk/IntExtensions.html">IntExtensions</a></li>
+  <li><a href="../btc_sdk/IntToUint.html">IntToUint</a></li>
+  <li><a href="../btc_sdk/ListIntExtensions.html">ListIntExtensions</a></li>
+  <li><a href="../btc_sdk/StringExtensions.html">StringExtensions</a></li>
+  <li><a href="../btc_sdk/Uint8ListExtensions.html">Uint8ListExtensions</a></li>
+
+
+
+
+
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#enums">Enums</a></li>
+  <li><a href="../btc_sdk/Network.html">Network</a></li>
+  <li><a href="../btc_sdk/UintType.html">UintType</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+        <li class="section-title"><a href="../btc_sdk/WifPrivateKey-class.html#constructors">Constructors</a></li>
+          <li><a href="../btc_sdk/WifPrivateKey/WifPrivateKey.html">WifPrivateKey</a></li>
+          <li><a href="../btc_sdk/WifPrivateKey/WifPrivateKey.parseBase58Check.html">parseBase58Check</a></li>
+
+
+    <li class="section-title">
+      <a href="../btc_sdk/WifPrivateKey-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="../btc_sdk/PrivateKey/curve.html">curve</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../btc_sdk/WifPrivateKey/isCompressed.html">isCompressed</a></li>
+    <li><a href="../btc_sdk/WifPrivateKey/network.html">network</a></li>
+    <li class="inherited"><a href="../btc_sdk/PrivateKey/publicKey.html">publicKey</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="../btc_sdk/PrivateKey/toUint8List.html">toUint8List</a></li>
+    <li><a href="../btc_sdk/WifPrivateKey/toWif.html">toWif</a></li>
+    <li class="inherited"><a href="../btc_sdk/PrivateKey/value.html">value</a></li>
+
+    <li class="section-title inherited"><a href="../btc_sdk/WifPrivateKey-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+    <li class="inherited"><a href="../btc_sdk/PrivateKey/toWifPrivateKey.html">toWifPrivateKey</a></li>
+
+    <li class="section-title inherited"><a href="../btc_sdk/WifPrivateKey-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+        <li class="section-title"><a href="../btc_sdk/WifPrivateKey-class.html#constants">Constants</a></li>
+          <li><a href="../btc_sdk/WifPrivateKey/COMPRESSION_BYTE-constant.html">COMPRESSION_BYTE</a></li>
+          <li><a href="../btc_sdk/WifPrivateKey/WIF_COMPRESSED_PRIVATE_KEY_LENGTH-constant.html">WIF_COMPRESSED_PRIVATE_KEY_LENGTH</a></li>
+          <li><a href="../btc_sdk/WifPrivateKey/WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH-constant.html">WIF_UNCOMPRESSED_PRIVATE_KEY_LENGTH</a></li>
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    btc_sdk
+      0.1.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

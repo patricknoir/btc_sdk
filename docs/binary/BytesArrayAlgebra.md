@@ -51,9 +51,152 @@ A Uint8List contains a ordered list of uint8 types and is the most important typ
 
 ### Bytes Array and Encodings
 
-#### Hex Representation
+#### Binary to Decimal
+Use the power of 2 to convert a binary format into decimal
+1 Byte can be represented by a decimal value between 0 - 255.
 
-#### Base58 Representation
+i.e.
+```bash
+0111 1100 = 0*2^7 + 1*2^6 + 1*2^5 + 1*2^4   +   0*2^3 + 0*2^2 + 0*2^1 + 0*2^0
+          =              112                +                 12
+          =                                124
+``` 
+
+##### Binary to HEX to Base58
+Groups the binary format into group of 4 and convert to HEX (0000 = 0      | 1111 = 15 = F)
+1 Byte can always be represented with 2 HEX digit prefixed by 0x.
+
+i.e.
+```bash
+0111 1100 = 0x7C
+  7  12=C
+```
+
+**A Uint8List is a synonymous for List<Uint8>.**
+
+```dart
+final Uint8List data = Uint8List.fromList([124, 8, 234, 156]);
+```
+
+This Uint8List of length 4 is representing a Uint32 data type.
+
+Its' binary representation is:
+
+```bash
+124 = 0111 1100
+8   = 0000 1000
+234 = 1110 1010
+156 = 1001 1100
+```
+
+which in HEX translates into:
+
+```bash
+124 = 0111 1100 = 0x7C
+8   = 0000 1000 = 0x08
+234 = 1110 1010 = 0xEA
+156 = 1001 1100 = 0x9C
+```
+
+```dart
+final Uint8List data = Uint8List.fromList([124, 8, 234, 156]); // In HEX = [ 0x7C, 0x08, 0xEA, 0x9C]
+final int valueAsInt32 = data.buffer.asByteData().getInt32(0); // = 2080959132 in decimal
+expect(valueAsInt32, 0x7C08EA9C); // this is equal to concat the HEX representation of each Uint8 in the array
+```
+##### Base58
+
+| Base	            | Characters                                                     |
+|------------------|----------------------------------------------------------------|
+| 2 (binary)       | 01                                                             |
+| 10 (decimal)	    | 0123456789                                                     |
+| 16 (hexadecimal) | 	0123456789abcdef                                              |
+| 58               | 	123456789ABCDEFGH JKLMN PQRSTUVWXYZabcdefghijk mnopqrstuvwxyz |
+
+***NOTE: Base58 does not include the digit 0,O,I,l because these are easily confused with other digits.***
+
+| Decimal | Base58 |
+|---------|--------|
+| 0       | 1      |
+| 1       | 2      |
+| 2       | 3      |
+| 3       | 4      |
+| 4       | 5      |
+| 5       | 6      |
+| 6       | 7      |
+| 7       | 8      |
+| 8       | 9      |
+| 9       | A      |
+| 10      | B      | 
+| 11      | C      |
+| 12      | D      |
+| 13      | E      |
+| 14      | F      |
+| 15      | G      |
+| 16      | H      |
+| 17      | J      |
+| 18      | K      |
+| 19      | L      |
+| 20      | M      |
+| 21      | N      |
+| 22      | P      |
+| 23      | Q      |
+| 24      | R      |
+| 25      | S      |
+| 26      | T      |
+| 27      | U      |
+| 28      | V      |
+| 29      | W      |
+| 30      | X      |
+| 31      | Y      |
+| 32      | Z      |
+| 33      | a      |
+| 34      | b      |
+| 35      | c      |
+| 36      | d      |
+| 37      | e      |
+| 38      | f      |
+| 39      | g      |
+| 40      | h      |
+| 41      | i      |
+| 42      | j      |
+| 43      | k      |
+| 44      | m      |
+| 45      | n      |
+| 46      | o      |
+| 47      | p      |
+| 48      | q      |
+| 49      | r      |
+| 50      | s      |
+| 51      | t      |
+| 52      | u      |
+| 53      | v      |
+| 54      | w      |
+| 55      | x      |
+| 56      | y      |
+| 57      | z      |
+
+
+```bash
+base2(9999) = 0010 0111 0000 1111 = 1 + 2 + 4 + 8 + 256 + 512 + 1024 + 8192
+base10(9999) = 9999
+base16(9999) = 270f
+base58(9999) = 3yQ
+```
+
+Convert it back to base10:
+
+```
+base58(3) = base10(2)
+base58(y) = base10(56)
+base58(Q) = base10(23)
+
+23 + 56*58 + 2*58^2 = 23 + 56*58 + 2*3364 = 23 + 3248 + 6728 = 9999
+```
+
+#### Links
+
+- Base58: [Alphanumeric Representation for numbers](https://learnmeabitcoin.com/technical/base58)
+
 
 ### Transaction Types
 

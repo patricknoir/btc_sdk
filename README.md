@@ -1,26 +1,19 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<a href="https://pub.dartlang.org/packages/btc_sdk"><img alt="pub version" src="https://img.shields.io/pub/v/btc_sdk.svg?style=flat-square"></a>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+# btc_sdk
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+A dart Bitcoin library.
 
 This library contains useful classes and functions to implement applications
 which might need to use BTC and ETH non-custodial wallets.
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
+Released under the terms of the [MIT LICENSE](LICENSE).
 
 Check the documentation index [here](docs/Index.md).
+
+## Documentation
+
+Read the full documentation [here](docs/Index.md).
 
 ## Types
 

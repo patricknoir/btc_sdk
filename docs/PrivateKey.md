@@ -38,6 +38,40 @@ A WIF private key is a standard private key, but with a few added extras:
 
 This is all then converted to Base58, which shortens the entire thing and makes it easier to transcribe.
 
+```
+EXTENDED_PRIVATE_KEY = <Version Byte> <Private Key Value> [<Compressed Flag>]
+
+WIF = Base58(<EXTENDED_PRIVATE_KEY> <Checksum(<EXTENDED_PRIVATE_KEY>)>) 
+```
+
+| Field Name        | Size     | Value        | Optional     |
+|-------------------|----------|--------------|--------------|
+| Version Byte      | 1 Byte   | 0x80 or 0xEF | _Required_   |
+| Private Key Value | 32 Bytes | Any          | _Required_   |
+| Compressed Flag   | 1 Byte   | 0x01         | **Optional** |
+| Checksum          | 4 Bytes  | Checksum Fun | _Required_   |
+
+> WIF size can either be:
+> 
+> * 37 Bytes if the WIF generates an **UNCOMPRESSED PUBLIC KEY**
+> * 38 Bytes if the WIF generates a **COMPRESSED PUBLIC KEY**
+
+> **i.e.**
+> 
+> Lets assume we have a Private Key value which HEX representation is:
+> 
+> ```pkHex = '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'```
+> 
+> The WIF representation for that private key for the bitcoin **Mainnet** for a compressed Public Key is:
+> 
+> ```js 
+> extendedPK = '80' + pkHex + '01' // 802CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B982401
+> checkSum = checksum(extendedPK) // F29E9187
+> wifHEX = extendedPK + checksum(extendedPK) // 802CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B982401F29E9187
+> wifHEX length = 76 (38 bytes 1 + 32 + 1 + 4)
+> Base58(wifHEX) // Kxj5ejwPg2s2ejZHW7N1zAydD4fkmFi9j19QRmgeVK9mXL3wFMmp
+>```
+
 ## Generating the PublicKey
 
 When you multiply the `PrivateKey.value` by the generator `BigIntPoint` `curve.G` of the `EllipticCurve` instance used,

@@ -19,3 +19,19 @@
    3.1 [Private Keys](PrivateKey.md)
 
    3.2 [Public Keys](PublicKey.md)
+
+   3.3 [Checksums](Checksum.md)
+
+   3.4 [Signed Hash](SignedHash.md)
+
+4. ### Bitcoin and Crypto
+   4.1 [Address](Address.md)
+
+   4.2 [Extended Keys](ExtendedKeys.md)
+
+   4.3 [Hierarchical Deterministic Wallet](HDWallet.md)
+
+   4.4 Transaction
+
+5. ### API
+   5.1 [Documentation](../doc/api/index.html)

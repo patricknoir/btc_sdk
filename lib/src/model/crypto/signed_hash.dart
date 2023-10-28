@@ -16,7 +16,7 @@ class SignedHash extends Equatable {
   final BigInt r;
   final BigInt s;
 
-  /// Private constructor to instantiate a [SignedHash] with the original message as [hash] and
+  /// Constructor to instantiate a [SignedHash] with the original message as [hash] and
   /// its signature points [r] and [s].
   const SignedHash(this.hash, this.r, this.s);
 
@@ -70,9 +70,15 @@ class SignedHash extends Equatable {
   static const int DER_R_MARKER = 0x02;
   static const int DER_S_MARKER = 0x02;
 
+  /// DER is a binary serialization of a point.
+  ///
+  /// The DERK for a Signed Hash is defined as follow:
+  ///
   /// <DER_MARKER><Length><DER_R_MARKER><R.Length>[[<0x00>]]<R_VALUE><DER_S_MARKER><S.Length>[[<0x00>]]<S_VALUE>
   Uint8List toDER() {
     var encodedR = r.toUint8List;
+    //encoded number starting with a value >= 0x80 are considered negative numbers.
+    //check that this is not encoded as a negative number, prefix it with 0x00.
     if(encodedR.first >= 0x80) {
       encodedR = [0x00].toUint8List.concat(encodedR);
     }
@@ -80,6 +86,8 @@ class SignedHash extends Equatable {
     final segmentR = [DER_R_MARKER].toUint8List.concat(encodedR.length.to8Bits().concat(encodedR));
 
     var encodedS = s.toUint8List;
+    //encoded number starting with a value >= 0x80 are considered negative numbers.
+    //check that this is not encoded as a negative number, prefix it with 0x00.
     if(encodedS.first >= 0x80) {
       encodedS = [0x00].toUint8List.concat(encodedS);
     }

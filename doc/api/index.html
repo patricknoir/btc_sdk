@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 6.0.0">
+  <meta name="description" content="btc_sdk API docs, for the Dart programming language.">
+  <title>btc_sdk - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">btc_sdk package</li>
+  </ol>
+  <div class="self-name">btc_sdk</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <p><a href="https://pub.dartlang.org/packages/btc_sdk"><img alt="pub version" src="https://img.shields.io/pub/v/btc_sdk.svg?style=flat-square"></a></p>
+<h1 id="btc_sdk">btc_sdk</h1>
+<p>A dart Bitcoin library.</p>
+<p>This library contains useful classes and functions to implement applications
+which might need to use BTC and ETH non-custodial wallets.</p>
+<p>Released under the terms of the <a href="LICENSE">MIT LICENSE</a>.</p>
+<p>Check the documentation index <a href="docs/Index.md">here</a>.</p>
+<h2 id="documentation">Documentation</h2>
+<p>Read the full documentation <a href="docs/Index.md">here</a>.</p>
+<h2 id="types">Types</h2>
+<h3 id="uint">Uint</h3>
+<p>This library makes extensive usage of the dart default library Uint8List.
+A Uint8List is just an array of bytes, where each entry of the list is a single byte (8 bits).
+There are several operations we want to do into a Uint8List, mainly we want to write bytes using the int base type.
+An int in dart can be either int8, int16, int32 or int64. Depending on the value of the int variable this can be translated
+into a Uint8List of different size as per the below table:</p>
+<table><thead><tr><th>Bytes</th><th>Data Type</th><th>Int range</th><th>Uint8List Length</th></tr></thead><tbody><tr><td>1 byte = 8 bits</td><td>Uint8</td><td>0 - 255</td><td>Uint8List of length 1</td></tr><tr><td>2 bytes = 16 bits</td><td>Uint16</td><td>0 - 65535</td><td>Uint8List of length 2</td></tr><tr><td>4 bytes = 32 bits</td><td>Uint32</td><td>0 - 4294967295</td><td>Uint8List of length 3</td></tr><tr><td>8 bytes = 64 bits</td><td>Uint64</td><td>0 - (2^64 - 1)</td><td>Uint8List of length 4</td></tr></tbody></table>
+<p>We have defined a new type called Uint which can easily be converted into Uint8List and can be used to write value into the Uint8List.</p>
+<p>We have extended the Uint8List with 2 new methods: <code>concat</code> and <code>appendInt</code></p>
+<h4 id="uint8listconcat">Uint8List.concat</h4>
+<p>this method allows you to append another Uint8List to an existing Uint8List.
+Although this function already exists as operator +, the input parameter and return type are not forced to be Uint8List.
+<em>concat</em> is a more restrictive function, where the passed argument must be a Uint8List and the return type is guarenteed to be a Uint8List.</p>
+<pre class="language-dart"><code class="language-dart">Uint8List l1 = Uint8List.fromList([128]);
+Uint8List l2 = Uint8List.fromList([64]);
+Uinst8List l3 = l1.concat(l2);
+expect(l3, [128, 64]);
+</code></pre>
+<h4 id="uint8listappendint">Uint8List.appendInt</h4>
+<p>this method allow you to append any int value (8-16-32-64 bits) to an arbitrary Uint8List.
+If the int value is 0-255 then a byte value is appended at the end, is greater then 2 bytes, 4 bytes or finally 8 bytes if the saze is in the range of int64.</p>
+<pre class="language-dart"><code class="language-dart">final l0 = Uint8List(0);
+final l16 = l0?.appendInt(Uint.minUint16Value);
+expect(l16, [1, 0]);
+expect(l16?.toHex, '0100');
+final l32 = l0?.appendInt(Uint.minUint32Value);
+expect(l32, [0, 1, 0, 0]);
+expect(l32?.toHex, '00010000');
+final l64 = l0?.appendInt(Uint.minUint64Value);
+expect(l64, [0, 0, 0, 1, 0, 0, 0, 0]);
+expect(l64?.toHex, '0000000100000000');
+</code></pre>
+<h4 id="hex-conversions-uint8listtohex--stringfromhex">Hex Conversions: Uint8List.toHex / String.fromHex</h4>
+<p>Any array of bytes can be represented as an HEX string and viceversa.
+A full byte can be represented by 2 HEX digits as per the below example:</p>
+<pre class="language-bash"><code class="language-bash">The number 256 is represented in bynary by the byte:
+00010000
+
+A byte can be split in 2 groups of 4 bits:
+0001 0000
+Each group of 4 bits can be represented by 1 HEX digit:
+0001 = HEX(1)
+0000 = HEX(0)
+
+HEX(10) = BINARY(0001 0000)
+
+BINARY(1010 1111) = HEX(AF)
+</code></pre>
+<p>We have extended the Uint8List to provide an utility function to convert any Uint8List into an HEX string representation:</p>
+<pre class="language-dart"><code class="language-dart">final Uint8List data = Uint8List.fromList([124, 8, 234, 156]);
+final String hexData = data.toHex;
+expect(hexData, '7C08EA9C'.toLowerCase());
+</code></pre>
+<p>Conversely, from an HEX string we can convert it back into a Uint8List using the fromHex function.
+Note this function returns a nullable value as in case the string is not a valid HEX representation the 
+returned value is null.</p>
+<pre class="language-dart"><code class="language-dart">final String hexValue = '7c08ea9c'; //Capital letters are also allowed
+final Uint8List bytesArray = hexValue.fromHex!;
+expect(bytesArray, [124, 8, 234, 156]);
+</code></pre>
+<h4 id="base58-conversions-uint8listtobase58--stringfrombase58">Base58 Conversions: Uint8List.toBase58 / String.fromBase58</h4>
+<p>Base58 is a convenient representation of array of bytes which make usage of the alphanumeric charachters, however,
+the characters 0, O, I, l are omitted as they can be easily confused each other.
+For more details on the representation check the Appendix section.</p>
+<p>As Base58 is commonly used in blockchain, convenience functions have been provided from/to Uint8List/String Base58.</p>
+<pre class="language-dart"><code class="language-dart">final Uint8List data = Uint8List.fromList([124, 8, 234, 156]);
+expect(data.toBase58, '4AtTej');
+
+expect('3yQ'.fromBase58?.buffer.asByteData().getInt16(0), 9999);
+</code></pre>
+<h3 id="the-type-buffer">The Type Buffer</h3>
+<p>In blockchain and bitcoin wallets, there are lots of operations which require the manipulation of array of bytes, such as concatenation of arrays, appending elements, converting little endian to big endians, having var sized buffers.
+For this reason we have introduced a new Buffer type used to manipulate Uint8List types.</p>
+<h2 id="usage">Usage</h2>
+<p>TODO: Include short and useful examples for package users. Add longer examples
+to <code>/example</code> folder.</p>
+<pre class="language-dart"><code class="language-dart">const like = 'sample';
+</code></pre>
+<h2 id="additional-information">Additional information</h2>
+<p>TODO: Tell users more about the package: where to find more information, how to 
+contribute to the package, how to file issues, what response they can expect 
+from the package authors, and more.</p>
+<h3 id="used-libraries">Used Libraries</h3>
+<ul>
+<li>bip39: used to generate mnemonic words to seed. Mnemonic are 12 words text used to recovery the seed key for a non-custodial wallet.</li>
+<li>bip32: used to generate a hierarchical wallet with a seed private/public key</li>
+<li>hex: convert from/to List<int>/HEX Strings. Used to represent Uint8List into a HEX String format.</int></li>
+</ul>
+<h3 id="bitbyte-data-types">Bit/Byte Data Types</h3>
+<p>When dealing with raw bitcoin address is key to master the basic bit data type representation.</p>
+<p>There are 4 kind of base data types:</p>
+<table><thead><tr><th>Bytes</th><th>Data Type</th><th>Int range</th><th>Uint8List Length</th></tr></thead><tbody><tr><td>1 byte = 8 bits</td><td>Uint8</td><td>0 - 255</td><td>Uint8List of length 1</td></tr><tr><td>2 bytes = 16 bits</td><td>Uint16</td><td>0 - 65535</td><td>Uint8List of length 2</td></tr><tr><td>4 bytes = 32 bits</td><td>Uint32</td><td>0 - 4294967295</td><td>Uint8List of length 3</td></tr><tr><td>8 bytes = 64 bits</td><td>Uint64</td><td>0 - (2^64 - 1)</td><td>Uint8List of length 4</td></tr></tbody></table>
+<p>Uint types can be represented either in decimal or HEX format.</p>
+<p>Example 1 byte = 8 bit.</p>
+<h4 id="binary-to-decimal">Binary to Decimal</h4>
+<p>Use the power of 2 to convert a binary format into decimal
+1 Byte can be represented by a decimal value between 0 - 255.</p>
+<p>i.e.</p>
+<pre class="language-bash"><code class="language-bash">0111 1100 = 0*2^7 + 1*2^6 + 1*2^5 + 1*2^4   +   0*2^3 + 0*2^2 + 0*2^1 + 0*2^0
+          =              112                +                 12
+          =                                124
+</code></pre>
+<h4 id="binary-to-hex-to-base58">Binary to HEX to Base58</h4>
+<p>Groups the binary format into group of 4 and convert to HEX (0000 = 0      | 1111 = 15 = F)
+1 Byte can always be represented with 2 HEX digit prefixed by 0x.</p>
+<p>i.e.</p>
+<pre class="language-bash"><code class="language-bash">0111 1100 = 0x7C
+  7  12=C
+</code></pre>
+<p><strong>A Uint8List is a synonymous for List<uint8>.</uint8></strong></p>
+<pre class="language-dart"><code class="language-dart">final Uint8List data = Uint8List.fromList([124, 8, 234, 156]);
+</code></pre>
+<p>This Uint8List of length 4 is representing a Uint32 data type.</p>
+<p>Its' binary representation is:</p>
+<pre class="language-bash"><code class="language-bash">124 = 0111 1100
+8   = 0000 1000
+234 = 1110 1010
+156 = 1001 1100
+</code></pre>
+<p>which in HEX translates into:</p>
+<pre class="language-bash"><code class="language-bash">124 = 0111 1100 = 0x7C
+8   = 0000 1000 = 0x08
+234 = 1110 1010 = 0xEA
+156 = 1001 1100 = 0x9C
+</code></pre>
+<pre class="language-dart"><code class="language-dart">final Uint8List data = Uint8List.fromList([124, 8, 234, 156]); // In HEX = [ 0x7C, 0x08, 0xEA, 0x9C]
+final int valueAsInt32 = data.buffer.asByteData().getInt32(0); // = 2080959132 in decimal
+expect(valueAsInt32, 0x7C08EA9C); // this is equal to concat the HEX representation of each Uint8 in the array
+</code></pre>
+<h5 id="base58">Base58</h5>
+<table><thead><tr><th>Base</th><th>Characters</th></tr></thead><tbody><tr><td>2 (binary)</td><td>01</td></tr><tr><td>10 (decimal)</td><td>0123456789</td></tr><tr><td>16 (hexadecimal)</td><td>0123456789abcdef</td></tr><tr><td>58</td><td>123456789ABCDEFGH JKLMN PQRSTUVWXYZabcdefghijk mnopqrstuvwxyz</td></tr></tbody></table>
+<p><em><strong>NOTE: Base58 does not include the digit 0,O,I,l because these are easily confused with other digits.</strong></em></p>
+<table><thead><tr><th>Decimal</th><th>Base58</th></tr></thead><tbody><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>2</td></tr><tr><td>2</td><td>3</td></tr><tr><td>3</td><td>4</td></tr><tr><td>4</td><td>5</td></tr><tr><td>5</td><td>6</td></tr><tr><td>6</td><td>7</td></tr><tr><td>7</td><td>8</td></tr><tr><td>8</td><td>9</td></tr><tr><td>9</td><td>A</td></tr><tr><td>10</td><td>B</td></tr><tr><td>11</td><td>C</td></tr><tr><td>12</td><td>D</td></tr><tr><td>13</td><td>E</td></tr><tr><td>14</td><td>F</td></tr><tr><td>15</td><td>G</td></tr><tr><td>16</td><td>H</td></tr><tr><td>17</td><td>J</td></tr><tr><td>18</td><td>K</td></tr><tr><td>19</td><td>L</td></tr><tr><td>20</td><td>M</td></tr><tr><td>21</td><td>N</td></tr><tr><td>22</td><td>P</td></tr><tr><td>23</td><td>Q</td></tr><tr><td>24</td><td>R</td></tr><tr><td>25</td><td>S</td></tr><tr><td>26</td><td>T</td></tr><tr><td>27</td><td>U</td></tr><tr><td>28</td><td>V</td></tr><tr><td>29</td><td>W</td></tr><tr><td>30</td><td>X</td></tr><tr><td>31</td><td>Y</td></tr><tr><td>32</td><td>Z</td></tr><tr><td>33</td><td>a</td></tr><tr><td>34</td><td>b</td></tr><tr><td>35</td><td>c</td></tr><tr><td>36</td><td>d</td></tr><tr><td>37</td><td>e</td></tr><tr><td>38</td><td>f</td></tr><tr><td>39</td><td>g</td></tr><tr><td>40</td><td>h</td></tr><tr><td>41</td><td>i</td></tr><tr><td>42</td><td>j</td></tr><tr><td>43</td><td>k</td></tr><tr><td>44</td><td>m</td></tr><tr><td>45</td><td>n</td></tr><tr><td>46</td><td>o</td></tr><tr><td>47</td><td>p</td></tr><tr><td>48</td><td>q</td></tr><tr><td>49</td><td>r</td></tr><tr><td>50</td><td>s</td></tr><tr><td>51</td><td>t</td></tr><tr><td>52</td><td>u</td></tr><tr><td>53</td><td>v</td></tr><tr><td>54</td><td>w</td></tr><tr><td>55</td><td>x</td></tr><tr><td>56</td><td>y</td></tr><tr><td>57</td><td>z</td></tr></tbody></table>
+<pre class="language-bash"><code class="language-bash">base2(9999) = 0010 0111 0000 1111 = 1 + 2 + 4 + 8 + 256 + 512 + 1024 + 8192
+base10(9999) = 9999
+base16(9999) = 270f
+base58(9999) = 3yQ
+</code></pre>
+<p>Convert it back to base10:</p>
+<pre class="language-dart"><code>base58(3) = base10(2)
+base58(y) = base10(56)
+base58(Q) = base10(23)
+
+23 + 56*58 + 2*58^2 = 23 + 56*58 + 2*3364 = 23 + 3248 + 6728 = 9999
+</code></pre>
+<h4 id="links">Links</h4>
+<ul>
+<li>Base58: <a href="https://learnmeabitcoin.com/technical/base58">Alphanumeric Representation for numbers</a></li>
+</ul>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="btc_sdk">
+  <span class="name"><a href="btc_sdk/btc_sdk-library.html">btc_sdk</a></span> 
+
+</dt>
+<dd>Utility library to work with btcs wallets and transaction types.
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li class="self-crumb">btc_sdk package</li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">btc_sdk</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="btc_sdk/btc_sdk-library.html">btc_sdk</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    btc_sdk
+      0.1.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

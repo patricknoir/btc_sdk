@@ -1,6 +1,6 @@
 # Hash Signing
 
-Signing a message, guarantees to the receiver that the content of the message has bot been tempered and has been created by the owner of the `PrivateKey` associated to the `PublicKey` used to verify the signature.
+Signing a message, guarantees to the receiver that the content of the message has not been tempered and has been created by the owner of the `PrivateKey` associated to the `PublicKey` used to verify the signature.
 
 ## Signing
 

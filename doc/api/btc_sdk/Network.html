@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the Network enum from the btc_sdk library, for the Dart programming language.">
+  <title>Network enum - btc_sdk library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">btc_sdk</a></li>
+    <li><a href="../btc_sdk/btc_sdk-library.html">btc_sdk</a></li>
+    <li class="self-crumb">Network enum</li>
+  </ol>
+  <div class="self-name">Network</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+
+        <h1>
+          <span class="kind-enum">Network</span>
+          enum 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+
+        </h1>
+      </div>
+
+    
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark eNum-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://api.flutter.dev/flutter/dart-core/Enum-class.html">Enum</a></li>
+      <li>Network</li>
+    </ul>
+  </dd>
+
+        
+        
+        
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="Network" class="callable">
+          <span class="name"><a href="../btc_sdk/Network/Network.html">Network</a></span><span class="signature">(<span class="parameter" id="-param-wif"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">wif</span>, </span><span class="parameter" id="-param-p2pkh"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">p2pkh</span>, </span><span class="parameter" id="-param-p2sh"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">p2sh</span>, </span><span class="parameter" id="-param-bech32"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">bech32</span>, </span><span class="parameter" id="-param-bip32Private"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">bip32Private</span>, </span><span class="parameter" id="-param-bip32Public"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">bip32Public</span></span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">const</div>
+        </dd>
+        <dt id="Network.fromP2PKH" class="callable">
+          <span class="name"><a href="../btc_sdk/Network/Network.fromP2PKH.html">Network.fromP2PKH</a></span><span class="signature">(<span class="parameter" id="fromP2PKH-param-prefix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">prefix</span></span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="Network.fromWif" class="callable">
+          <span class="name"><a href="../btc_sdk/Network/Network.fromWif.html">Network.fromWif</a></span><span class="signature">(<span class="parameter" id="fromWif-param-prefix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">prefix</span></span>)</span>
+        </dt>
+        <dd>
+          
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="values">
+      <h2>Values</h2>
+
+      <dl class="properties">
+          <dt id="mainnet" class="constant">
+    <span class="name ">mainnet</span>
+  <span class="signature">&#8594; const <a href="../btc_sdk/Network.html">Network</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>Network(MAINNET_WIF_PRVK_PREFIX, MAINNET_P2PKH_PREFIX, MAINNET_P2SH_PREFIX, MAINNET_BECH32_PREFIX, MAINNET_EXT_PRVK_PREFIX, MAINNET_EXT_PUBK_PREFIX)</code></span>
+  </div>
+</dd>
+
+          <dt id="testnet" class="constant">
+    <span class="name ">testnet</span>
+  <span class="signature">&#8594; const <a href="../btc_sdk/Network.html">Network</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>Network(TESTNET_WIF_PRVK_PREFIX, TESTNET_P2PKH_PREFIX, TESTNET_P2SH_PREFIX, TESTNET_BECH32_PREFIX, TESTNET_EXT_PRVK_PREFIX, TESTNET_EXT_PUBK_PREFIX)</code></span>
+  </div>
+</dd>
+
+      </dl>
+    </section>
+
+    <section
+        class="
+          summary
+          offset-anchor"
+        id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="bech32" class="property">
+  <span class="name"><a href="../btc_sdk/Network/bech32.html">bech32</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="bip32Private" class="property">
+  <span class="name"><a href="../btc_sdk/Network/bip32Private.html">bip32Private</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="bip32Public" class="property">
+  <span class="name"><a href="../btc_sdk/Network/bip32Public.html">bip32Public</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="index" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  A numeric identifier for the enumerated value.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="p2pkh" class="property">
+  <span class="name"><a href="../btc_sdk/Network/p2pkh.html">p2pkh</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="p2sh" class="property">
+  <span class="name"><a href="../btc_sdk/Network/p2sh.html">p2sh</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="wif" class="property">
+  <span class="name"><a href="../btc_sdk/Network/wif.html">wif</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">final</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  <section class="summary offset-anchor" id="constants">
+    <h2>Constants</h2>
+
+    <dl class="properties">
+        <dt id="MAINNET_BECH32_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_BECH32_PREFIX-constant.html">MAINNET_BECH32_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>&quot;bc&quot;</code></span>
+  </div>
+</dd>
+
+        <dt id="MAINNET_EXT_PRVK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_EXT_PRVK_PREFIX-constant.html">MAINNET_EXT_PRVK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x0488ADE4</code></span>
+  </div>
+</dd>
+
+        <dt id="MAINNET_EXT_PUBK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_EXT_PUBK_PREFIX-constant.html">MAINNET_EXT_PUBK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x0488B21E</code></span>
+  </div>
+</dd>
+
+        <dt id="MAINNET_P2PKH_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_P2PKH_PREFIX-constant.html">MAINNET_P2PKH_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x00</code></span>
+  </div>
+</dd>
+
+        <dt id="MAINNET_P2SH_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_P2SH_PREFIX-constant.html">MAINNET_P2SH_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x05</code></span>
+  </div>
+</dd>
+
+        <dt id="MAINNET_WIF_PRVK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/MAINNET_WIF_PRVK_PREFIX-constant.html">MAINNET_WIF_PRVK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x80</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_BECH32_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_BECH32_PREFIX-constant.html">TESTNET_BECH32_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>&quot;tc&quot;</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_EXT_PRVK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_EXT_PRVK_PREFIX-constant.html">TESTNET_EXT_PRVK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x04358394</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_EXT_PUBK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_EXT_PUBK_PREFIX-constant.html">TESTNET_EXT_PUBK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x043587CF</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_P2PKH_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_P2PKH_PREFIX-constant.html">TESTNET_P2PKH_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0x6F</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_P2SH_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_P2SH_PREFIX-constant.html">TESTNET_P2SH_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0xC4</code></span>
+  </div>
+</dd>
+
+        <dt id="TESTNET_WIF_PRVK_PREFIX" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/TESTNET_WIF_PRVK_PREFIX-constant.html">TESTNET_WIF_PRVK_PREFIX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+  <div>
+    <span class="signature"><code>0xEF</code></span>
+  </div>
+</dd>
+
+        <dt id="values" class="constant">
+    <span class="name "><a href="../btc_sdk/Network/values-constant.html">values</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../btc_sdk/Network.html">Network</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  A constant List of the values in this enum, in order of their declaration.
+  
+
+  <div>
+    <span class="signature"><code>[mainnet, testnet]</code></span>
+  </div>
+</dd>
+
+    </dl>
+  </section>
+  </div><!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">btc_sdk</a></li>
+  <li><a href="../btc_sdk/btc_sdk-library.html">btc_sdk</a></li>
+  <li class="self-crumb">Network enum</li>
+</ol>
+
+
+    <h5>btc_sdk library</h5>
+    <ol>
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#classes">Classes</a></li>
+  <li><a href="../btc_sdk/Address-class.html">Address</a></li>
+  <li><a href="../btc_sdk/BigIntPoint-class.html">BigIntPoint</a></li>
+  <li><a href="../btc_sdk/BigIntTuple-class.html">BigIntTuple</a></li>
+  <li><a href="../btc_sdk/Buffer-class.html">Buffer</a></li>
+  <li><a href="../btc_sdk/EllipticCurve-class.html">EllipticCurve</a></li>
+  <li><a href="../btc_sdk/Hash-class.html">Hash</a></li>
+  <li><a href="../btc_sdk/Modulus-class.html">Modulus</a></li>
+  <li><a href="../btc_sdk/PBKDF2-class.html">PBKDF2</a></li>
+  <li><a href="../btc_sdk/PrivateKey-class.html">PrivateKey</a></li>
+  <li><a href="../btc_sdk/PublicKey-class.html">PublicKey</a></li>
+  <li><a href="../btc_sdk/SignedHash-class.html">SignedHash</a></li>
+  <li><a href="../btc_sdk/Uint-class.html">Uint</a></li>
+  <li><a href="../btc_sdk/VarInt-class.html">VarInt</a></li>
+  <li><a href="../btc_sdk/WifPrivateKey-class.html">WifPrivateKey</a></li>
+
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#extensions">Extensions</a></li>
+  <li><a href="../btc_sdk/BigIntExtensions.html">BigIntExtensions</a></li>
+  <li><a href="../btc_sdk/IntExtensions.html">IntExtensions</a></li>
+  <li><a href="../btc_sdk/IntToUint.html">IntToUint</a></li>
+  <li><a href="../btc_sdk/ListIntExtensions.html">ListIntExtensions</a></li>
+  <li><a href="../btc_sdk/StringExtensions.html">StringExtensions</a></li>
+  <li><a href="../btc_sdk/Uint8ListExtensions.html">Uint8ListExtensions</a></li>
+
+
+
+
+
+  <li class="section-title"><a href="../btc_sdk/btc_sdk-library.html#enums">Enums</a></li>
+  <li><a href="../btc_sdk/Network.html">Network</a></li>
+  <li><a href="../btc_sdk/UintType.html">UintType</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+        <li class="section-title"><a href="../btc_sdk/Network.html#constructors">Constructors</a></li>
+          <li><a href="../btc_sdk/Network/Network.html">Network</a></li>
+          <li><a href="../btc_sdk/Network/Network.fromP2PKH.html">fromP2PKH</a></li>
+          <li><a href="../btc_sdk/Network/Network.fromWif.html">fromWif</a></li>
+
+    <li class="section-title"><a href="../btc_sdk/Network.html#values">Values</a></li>
+    <li><a href="../btc_sdk/Network.html#mainnet">mainnet</a></li>
+    <li><a href="../btc_sdk/Network.html#testnet">testnet</a></li>
+
+    <li class="section-title">
+      <a href="../btc_sdk/Network.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../btc_sdk/Network/bech32.html">bech32</a></li>
+    <li><a href="../btc_sdk/Network/bip32Private.html">bip32Private</a></li>
+    <li><a href="../btc_sdk/Network/bip32Public.html">bip32Public</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></li>
+    <li><a href="../btc_sdk/Network/p2pkh.html">p2pkh</a></li>
+    <li><a href="../btc_sdk/Network/p2sh.html">p2sh</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../btc_sdk/Network/wif.html">wif</a></li>
+
+    <li class="section-title inherited"><a href="../btc_sdk/Network.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../btc_sdk/Network.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+        <li class="section-title"><a href="../btc_sdk/Network.html#constants">Constants</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_BECH32_PREFIX-constant.html">MAINNET_BECH32_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_EXT_PRVK_PREFIX-constant.html">MAINNET_EXT_PRVK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_EXT_PUBK_PREFIX-constant.html">MAINNET_EXT_PUBK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_P2PKH_PREFIX-constant.html">MAINNET_P2PKH_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_P2SH_PREFIX-constant.html">MAINNET_P2SH_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/MAINNET_WIF_PRVK_PREFIX-constant.html">MAINNET_WIF_PRVK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_BECH32_PREFIX-constant.html">TESTNET_BECH32_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_EXT_PRVK_PREFIX-constant.html">TESTNET_EXT_PRVK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_EXT_PUBK_PREFIX-constant.html">TESTNET_EXT_PUBK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_P2PKH_PREFIX-constant.html">TESTNET_P2PKH_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_P2SH_PREFIX-constant.html">TESTNET_P2SH_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/TESTNET_WIF_PRVK_PREFIX-constant.html">TESTNET_WIF_PRVK_PREFIX</a></li>
+          <li><a href="../btc_sdk/Network/values-constant.html">values</a></li>
+</ol>
+
+  </div><!-- /.sidebar-offcanvas -->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    btc_sdk
+      0.1.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
