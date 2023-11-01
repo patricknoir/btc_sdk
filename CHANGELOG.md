@@ -14,3 +14,7 @@
 
 - improvement of the HDWallet interface: 
   - create HDWallet directly using a mnemonic.
+
+## 0.1.4
+
+- 

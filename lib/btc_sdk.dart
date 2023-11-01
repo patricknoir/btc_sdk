@@ -29,3 +29,6 @@ export 'src/model/bitcoin/transaction_input.dart';
 export 'src/model/bitcoin/transaction_output.dart';
 
 export 'src/trx/transaction_reader.dart';
+export 'src/script/script_element.dart';
+export 'src/script/script_reader.dart';
+export 'src/script/script_expression.dart';

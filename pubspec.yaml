@@ -1,6 +1,6 @@
 name: btc_sdk
 description: Library to use Bitcoin with Dart and Flutter applications
-version: 0.1.3
+version: 0.1.4
 platforms:
   android:
   ios:

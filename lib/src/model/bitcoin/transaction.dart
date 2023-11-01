@@ -1,6 +1,6 @@
+import 'dart:typed_data';
+
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/transaction_input.dart';
-import 'package:btc_sdk/src/model/bitcoin/transaction_output.dart';
 
 class Transaction {
 
@@ -14,5 +14,7 @@ class Transaction {
   final List<TransactionOutput> outputs;
   final int nLockTime;
 
-const Transaction({required this.version, required this.inputs, required this.outputs, this.nLockTime = Transaction.TX_nLOCK_DEFAULT});
+  const Transaction({required this.version, required this.inputs, required this.outputs, this.nLockTime = Transaction.TX_nLOCK_DEFAULT});
+
+  factory Transaction.fromBytes(Uint8List data) => TransactionReader.fromUint8List(data).readTransaction();
 }

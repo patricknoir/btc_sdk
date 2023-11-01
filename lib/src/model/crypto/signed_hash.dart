@@ -72,7 +72,7 @@ class SignedHash extends Equatable {
 
   /// DER is a binary serialization of a point.
   ///
-  /// The DERK for a Signed Hash is defined as follow:
+  /// The DER for a Signed Hash is defined as follow:
   ///
   /// <DER_MARKER><Length><DER_R_MARKER><R.Length>[[<0x00>]]<R_VALUE><DER_S_MARKER><S.Length>[[<0x00>]]<S_VALUE>
   Uint8List toDER() {

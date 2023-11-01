@@ -6,18 +6,27 @@ import 'package:btc_sdk/src/model/bitcoin/transaction_output.dart';
 import '../model/bitcoin/transaction.dart';
 import '../model/bitcoin/transaction_input.dart';
 
+/// Reader class designed to parse bitcoin Transactions [Transaction] from an array of bytes (Uint8List).
 class TransactionReader {
 
   final Uint8ListReader reader;
 
   int get currentPosition => reader.currentPosition;
 
+  bool get hasNext => reader.hasNext;
+
+  /// Standard constructor for the TransactionReader by using a [Uint8ListReader].
   TransactionReader(this.reader);
 
+  /// Create a reader by providing the array of bytes [data].
   factory TransactionReader.fromUint8List(Uint8List data) {
     return TransactionReader(Uint8ListReader(data));
   }
 
+  /// Parse the current data into a [Transaction].
+  ///
+  ///
+  /// TODO: Error management to be implemented
   Transaction readTransaction() {
     // transaction version
     int version = reader.readUint32(littleEndian: true);

@@ -19,7 +19,7 @@ void main() {
 
   final bitcoinTransactionBytes = "020000000255a736179f5ee498660f33ca6f4ce017ed8ad4bd286c162400d215f3c5a876af000000001976a9140af2c7db949861cdc7767ad211432789f1852e9488acffffffff4d89764cf5490ac5023cb55cd2a0ecbfd238a216de62f4fd49154253f1a750920200000000ffffffff0200e20400000000001976a914e993470936b573678dc3b997e56db2f9983cb0b488ac20cb0000000000001976a914b780d54c6b03b053916333b50a213d566bbedd1388ac0000000001000000".toUint8ListFromHex!;
 
-  final Transaction transaction = TransactionReader.fromUint8List(bitcoinTransactionBytes).readTransaction();
+  final Transaction transaction = Transaction.fromBytes(bitcoinTransactionBytes);
 
   print("Transaction version: ${transaction.version}"); // Version: 2
   print("Transaction Inputs: ${transaction.inputs.length}"); // 2 Inputs in this transaction
