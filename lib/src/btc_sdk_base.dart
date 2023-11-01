@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:btc_sdk/btc_sdk.dart';
 import 'package:fast_base58/fast_base58.dart';
 import 'package:hex/hex.dart';
 
@@ -145,4 +146,8 @@ extension IntExtensions on int {
 
   /// Return the Hex String representation for this int value.
   String get toHex => HEX.encode(Uint(this).toUint8List);
+}
+
+extension PublicKeyToAddress on PublicKey {
+  Address toAddress({Network network = Network.mainnet, bool compress = false}) => Address(network, toPublicKeyHash(compress: compress));
 }

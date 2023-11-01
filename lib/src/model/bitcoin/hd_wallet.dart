@@ -5,7 +5,6 @@ import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
 import 'package:btc_sdk/src/model/bitcoin/bip39/wordlist/english.dart';
-import 'package:pointycastle/export.dart';
 
 enum MnemonicType {
   short12Words(16),
@@ -50,10 +49,19 @@ class HDWallet {
   ///
   /// The Seed is a 64 bytes value.
   static Uint8List generateSeedFromMnemonic(String mnemonic, {String passphrase = ""}) => Hash.pbkdf2(mnemonic, passphrase: passphrase);
-  final Uint8List masterPrivateKey;
+  final ExtendedPrivateKey masterPrivateKey;
 
   const HDWallet(this.masterPrivateKey);
 
-  factory HDWallet.fromSeed(Uint8List seed) => HDWallet(Hash.hmacSHA512(BITCOIN_SEED, seed));
+  /// Create a HDWallet using the provided seed as [ExtendedPrivateKey].
+  ///
+  /// If no curve will be provided then [EllipticCurve.secp256k1] will be used.
+  /// If no network is provided [Network.mainnet] will be assumed.
+  factory HDWallet.fromSeed(Uint8List seed, {EllipticCurve? curve, Network network = Network.mainnet}) => HDWallet(ExtendedPrivateKey.masterKey(seed, curve: curve, network: network));
 
+  /// Given a specific mnemonic, generates an HDWallet.
+  ///
+  /// If no curve will be provided then [EllipticCurve.secp256k1] will be used.
+  /// If no network is provided [Network.mainnet] will be assumed.
+  factory HDWallet.fromMnemonic(String mnemonic, {EllipticCurve? curve, Network network = Network.mainnet}) => HDWallet.fromSeed(generateSeedFromMnemonic(mnemonic), curve: curve, network: network);
 }

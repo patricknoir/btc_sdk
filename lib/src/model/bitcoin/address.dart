@@ -43,6 +43,10 @@ class Address extends Equatable {
     return extended.concat(Hash.checksum(extended));
   }
 
+  // Uint8List get p2wpkhUint8List {
+  //
+  // }
+
   String get p2pkhBase58 => p2pkhUint8List.toBase58;
 
   Uint8List get p2shUint8List {

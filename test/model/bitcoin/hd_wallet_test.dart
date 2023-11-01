@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/hd_wallet.dart';
-import 'package:fast_base58/fast_base58.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -28,7 +24,7 @@ void main() {
       // print('a63383'.toUint8ListFromHex!.toBase58);
 
       final seed = '67f93560761e20617de26e0cb84f7234aaf373ed2e66295c3d7397e6d7ebe882ea396d5d293808b0defd7edd2babd4c091ad942e6a9351e6d075a29d4df872af'.toUint8ListFromHex!;
-      final wallet = HDWallet(seed);
+      final wallet = HDWallet.fromSeed(seed);
 
       // final masterPrivateKey = wallet.masterPrivateKey.sublist(0, 32);
       // final chainCode = wallet.masterPrivateKey.sublist(32, 64);

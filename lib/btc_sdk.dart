@@ -8,6 +8,7 @@ export 'src/btc_sdk_base.dart';
 export 'src/model/binary/uint.dart';
 export 'src/model/binary/var_int.dart';
 export 'src/model/binary/buffer.dart';
+export 'src/model/binary/uint8list_reader.dart';
 
 export 'src/model/crypto/elliptic.dart';
 export 'src/model/crypto/hash.dart';
@@ -19,3 +20,12 @@ export 'src/model/bitcoin/address.dart';
 export 'src/model/bitcoin/network.dart';
 export 'src/model/bitcoin/wif_private_key.dart';
 
+export 'src/model/bitcoin/hd_wallet.dart';
+export 'src/model/bitcoin/extended_private_key.dart';
+export 'src/model/bitcoin/extended_public_key.dart';
+
+export 'src/model/bitcoin/transaction.dart';
+export 'src/model/bitcoin/transaction_input.dart';
+export 'src/model/bitcoin/transaction_output.dart';
+
+export 'src/trx/transaction_reader.dart';
