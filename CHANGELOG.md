@@ -17,4 +17,7 @@
 
 ## 0.1.4
 
-- 
+- adding script semantic
+  - script reader
+  - script expression
+  - adding all the necessary OP_XX

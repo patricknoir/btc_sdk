@@ -29,7 +29,7 @@ void main() {
 
   print("Input1 TX ID reference: ${input1.refTXID.toHex}"); // TXID this input is referring: 55a736179f5ee498660f33ca6f4ce017ed8ad4bd286c162400d215f3c5a876af
   print("Input1 previous transaction output index: ${input1.outIndex}"); // Index of the output associated to this input from the referred TXID: index = 0
-  print("Input1 scriptSig: ${input1.scriptSig.toHex}");
+  print("Input1 scriptSig: ${input1.scriptSig?.toHex}");
   print("Input1 nSequence: ${input1.nSequence.toHex}");
 
   final TransactionOutput output1 = transaction.outputs[0];

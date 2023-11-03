@@ -25,7 +25,7 @@ class Uint8ListReader {
       return Uint8List(0);
     }
     // if the current position plus the bytes exceed the data length, return all the remaining data from the current position
-    if(_currentPosition + bytes >= data.length) {
+    if(_currentPosition + bytes > data.length) {
       _currentPosition = data.length;
       return data.sublist(_currentPosition).toUint8List;
     }
@@ -84,5 +84,5 @@ class Uint8ListReader {
     return varInt;
   }
 
-  bool get hasNext => (_currentPosition + 1) < data.length;
+  bool get hasNext => (_currentPosition + 1) <= data.length;
 }

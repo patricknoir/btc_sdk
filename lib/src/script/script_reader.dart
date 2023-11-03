@@ -57,6 +57,8 @@ class ScriptReader {
         return ScriptOperation.OP_EQUALVERIFY;
       case ScriptElement.CONST_OP_EQUAL:
         return ScriptOperation.OP_EQUAL;
+      case ScriptElement.CONST_OP_CHECKSIG:
+        return ScriptOperation.OP_CHECKSIG;
       default:
         throw UnimplementedError();
     }
