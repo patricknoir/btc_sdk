@@ -1,9 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:btc_sdk/btc_sdk.dart';
-import 'package:btc_sdk/src/model/bitcoin/transaction.dart';
-import 'package:btc_sdk/src/model/bitcoin/transaction_input.dart';
-import 'package:btc_sdk/src/trx/transaction_reader.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -41,7 +38,7 @@ void main() {
       expect(output1.nValue, 320000);
       expect(output1.scriptPubKey.toHex, "76a914e993470936b573678dc3b997e56db2f9983cb0b488ac");
       final script1 = ScriptExpression.fromBytes(output1.scriptPubKey);
-      print("scriptPubKey: ${script1.expression}");
+
       final output2 = outputs[1];
       expect(output2.nValue, 52000);
       expect(output2.scriptPubKey.toHex, "76a914b780d54c6b03b053916333b50a213d566bbedd1388ac");
@@ -66,7 +63,6 @@ void main() {
       expect(sigHash, 1);
 
       final previousScriptPubKey = "76a91499b1ebcfc11a13df5161aba8160460fe1601d54188ac".toUint8ListFromHex!;
-      var signingTrx = trx.copyWithSigScriptAt(data: {0:previousScriptPubKey});
 
       expect(pubKey.toHex, "03bf350d2821375158a608b51e3e898e507fe47f2d2e8c774de4a9a7edecf74eda");
 
@@ -75,13 +71,11 @@ void main() {
 
       expect(sig.toHex, "304402201c3be71e1794621cbe3a7adec1af25f818f238f5796d47152137eba710f2174a02204f8fe667b696e30012ef4e56ac96afb830bddffee3b15d2e474066ab3aa39bad");
 
-      expect(signingTrx.toUint8List.concat(sigHash.to32Bits(endian: Endian.little)).toHex, "0100000001416e9b4555180aaa0c417067a46607bc58c96f0131b2f41f7d0fb665eab03a7e000000001976a91499b1ebcfc11a13df5161aba8160460fe1601d54188acffffffff01204e0000000000001976a914e81d742e2c3c7acd4c29de090fc2c4d4120b2bf888ac0000000001000000");
-
-      final hash = Hash.sha256(Hash.sha256(signingTrx.toUint8List.concat(sigHash.to32Bits(endian: Endian.little))));
+      final hash = SigHash.sigHashAll(0, previousScriptPubKey, trx);
 
       SignedHash sh = SignedHash.fromDER(hash, sig);
       final result = sh.verify(PublicKey.fromSEC(EllipticCurve.secp256k1, pubKey));
-      print("result: $result");
+      expect(result, true);
 
       expect(trx.toUint8List.toHex, trxStr);
       });

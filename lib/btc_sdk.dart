@@ -32,3 +32,5 @@ export 'src/trx/transaction_reader.dart';
 export 'src/script/script_element.dart';
 export 'src/script/script_reader.dart';
 export 'src/script/script_expression.dart';
+
+export 'src/trx/sighash.dart';

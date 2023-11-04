@@ -9,6 +9,14 @@ import 'package:stack/stack.dart';
 /// like the hash value to be used in order to validate a signature.
 abstract class ScriptRuntime {}
 
+class P2PKHScriptRuntime extends ScriptRuntime {
+  final Transaction transaction;
+  final int inputIndex;
+  final Uint8List previousScriptPubKey;
+
+  P2PKHScriptRuntime({required this.inputIndex, required this.previousScriptPubKey, required this.transaction});
+}
+
 /// The [ScriptElement] is the basic entity in the Script Language and can be either:
 /// - [ScriptData] : a script which contains binary information
 /// - [ScriptOperation] : encoding a logical operation to be performed
@@ -278,10 +286,16 @@ class ScriptOpCheckSig extends ScriptOperation {
   ScriptOpCheckSig() : super(ScriptElement.CONST_OP_CHECKSIG);
 
   @override
-  int run(Stack<ScriptData> stack) {
+  int run(Stack<ScriptData> stack, {ScriptRuntime? runtime}) {
     if(stack.length >= 2) {
       final pubKey = stack.pop();
       final sig = stack.pop();
+      final sigHashFlag = sig.toUint8List.last;
+
+      if(sigHashFlag == 1 && runtime is P2PKHScriptRuntime) {
+        hash = SigHash.sigHashAll(runtime.inputIndex, runtime.previousScriptPubKey, runtime.transaction);
+      }
+
       final sigHash = SignedHash.fromDER(_hash, sig.data.sublist(0, sig.data.length - 1));
       final verified = sigHash.verify(PublicKey.fromSEC(EllipticCurve.secp256k1, pubKey.data));
       final result = (verified) ? 1 : 0;

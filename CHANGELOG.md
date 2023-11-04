@@ -22,3 +22,4 @@
   - script expression
   - adding all the necessary OP_XX
   - transaction converter
+  - implementing P2PKH transaction
