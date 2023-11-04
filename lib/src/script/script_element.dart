@@ -3,6 +3,15 @@ import 'package:btc_sdk/btc_sdk.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stack/stack.dart';
 
+/// The [ScriptRuntime] contains useful information used by the Script Language when evaluating the expressions.
+///
+/// An example of it's utility is in the [ScriptOperation.OP_CHECKSIG], this operation required some external information
+/// like the hash value to be used in order to validate a signature.
+abstract class ScriptRuntime {}
+
+/// The [ScriptElement] is the basic entity in the Script Language and can be either:
+/// - [ScriptData] : a script which contains binary information
+/// - [ScriptOperation] : encoding a logical operation to be performed
 abstract class ScriptElement extends Equatable {
 
   static const int CONST_OP_PUSHDATA1 = 0x4C;
@@ -45,13 +54,19 @@ abstract class ScriptElement extends Equatable {
   Uint8List get toUint8List;
 }
 
+/// A [ScriptData] is an instance of [ScriptElement] which contains data
+/// represented as [Uint8List].
+///
+/// When a [ScriptData] is exeuted through the [ScriptData.run] function,
+/// the [ScriptData.data] value is pushed on top of the [Stack].
 class ScriptData extends ScriptElement {
   final Uint8List data;
 
   ScriptData(this.data);
 
+  /// Pushes the [ScriptData.data] on top of the current [stack] and returns the value 1.
   @override
-  int run(Stack<ScriptData> stack) {
+  int run(Stack<ScriptData> stack, {ScriptRuntime? runtime}) {
     stack.push(this);
     return 1; //Do nothing
   }
@@ -85,6 +100,12 @@ class ScriptNumber extends ScriptData {
   }
 }
 
+/// A [ScriptOperation] is a [ScriptElement] within the Script language and encode
+/// a logical operation that can be performed.
+///
+/// [ScriptOperation] operates on a stack by manipulating [ScriptData], some operations
+/// might required some context information obtained through the [ScriptRuntime], i.e. such as the
+/// [Transaction] hash to be calculated by the [ScriptOpCheckSig].
 abstract class ScriptOperation extends ScriptElement {
 
   static final OP_DUP = ScriptOpDup();
@@ -250,6 +271,10 @@ class ScriptOpEqualVerify extends ScriptOperation {
 
 class ScriptOpCheckSig extends ScriptOperation {
 
+  Uint8List _hash = Uint8List(0);
+
+  set hash(Uint8List targetHash) => _hash = targetHash;
+
   ScriptOpCheckSig() : super(ScriptElement.CONST_OP_CHECKSIG);
 
   @override
@@ -257,7 +282,7 @@ class ScriptOpCheckSig extends ScriptOperation {
     if(stack.length >= 2) {
       final pubKey = stack.pop();
       final sig = stack.pop();
-      final sigHash = SignedHash.fromDER(pubKey.data, sig.data.sublist(0, sig.data.length - 1));
+      final sigHash = SignedHash.fromDER(_hash, sig.data.sublist(0, sig.data.length - 1));
       final verified = sigHash.verify(PublicKey.fromSEC(EllipticCurve.secp256k1, pubKey.data));
       final result = (verified) ? 1 : 0;
       stack.push(ScriptNumber(result));

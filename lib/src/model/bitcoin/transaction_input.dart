@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:btc_sdk/btc_sdk.dart';
 
 class TransactionInput {
-  // Previous transaction ID (hash256 of prev trx: 32 Bytes little endian)
+  // Previous transaction ID (hash256 of prev trx: NOTE NOTE NOTE::: 32 Bytes LITTLE ENDIAN!!!) - To search the TX in blockchain explorer, reverse the Uint8List
   final Uint8List refTXID; // Uint8List(32);
   // Index of the output to be unlocked
   final int outIndex; // uint32
@@ -25,6 +25,7 @@ class TransactionInput {
         scriptSig: scriptSig ??= this.scriptSig,
         nSequence: nSequence ??= this.nSequence
       );
+
 
   TransactionInput copyWithEmptyScript() => TransactionInput(
     refTXID: refTXID,

@@ -75,8 +75,6 @@ void main() {
 
       ScriptExpression sigScriptExp = ScriptExpression.fromBytes(transaction.inputs[0].scriptSig!);
 
-      Uint8List sigHash = (sigScriptExp.expression[0] as ScriptData).data;
-      Uint8List pubKey = (sigScriptExp.expression[1] as ScriptData).data;
 
       // OP_DUP
       // OP_HASH160
@@ -84,13 +82,21 @@ void main() {
       // OP_EQUALVERIFY
       // OP_CHECKSIG
 
+      final opCheckSig = ScriptOperation.OP_CHECKSIG;
+
       ScriptExpression pkScript = ScriptExpression([
         ScriptOperation.OP_DUP,
         ScriptOperation.OP_HASH160,
         ScriptData("5fb0e9755a3424efd2ba0587d20b1e98ee29814a".toUint8ListFromHex!),
         ScriptOperation.OP_EQUALVERIFY,
-        ScriptOperation.OP_CHECKSIG
+        opCheckSig
       ]);
+
+      //Calculate the hash
+      final signingTrx = transaction.copyWithSigScriptAt(data: {0:pkScript.toUint8List});
+
+      final hash = Hash.sha256(Hash.sha256(signingTrx.toUint8List));
+      opCheckSig.hash = hash;
 
       Stack<ScriptData> stack = Stack();
 

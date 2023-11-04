@@ -65,10 +65,8 @@ void main() {
       final sigHash = sigPart.last;
       expect(sigHash, 1);
 
-      var signingTrx = trx.copyWithClearSigScriptAt(indices: [0]);
       final previousScriptPubKey = "76a91499b1ebcfc11a13df5161aba8160460fe1601d54188ac".toUint8ListFromHex!;
-      signingTrx = signingTrx
-          .copyWith(inputs: signingTrx.inputs.map((input) => (input.scriptSig == null) ? input.copyWith(scriptSig: previousScriptPubKey) : input).toList());
+      var signingTrx = trx.copyWithSigScriptAt(data: {0:previousScriptPubKey});
 
       expect(pubKey.toHex, "03bf350d2821375158a608b51e3e898e507fe47f2d2e8c774de4a9a7edecf74eda");
 
@@ -79,9 +77,6 @@ void main() {
 
       expect(signingTrx.toUint8List.concat(sigHash.to32Bits(endian: Endian.little)).toHex, "0100000001416e9b4555180aaa0c417067a46607bc58c96f0131b2f41f7d0fb665eab03a7e000000001976a91499b1ebcfc11a13df5161aba8160460fe1601d54188acffffffff01204e0000000000001976a914e81d742e2c3c7acd4c29de090fc2c4d4120b2bf888ac0000000001000000");
 
-      // print(signingTrx.inputs[0].refTXID.toHex);
-      // print(signingTrx.inputs[0].toUint8List.toHex);
-
       final hash = Hash.sha256(Hash.sha256(signingTrx.toUint8List.concat(sigHash.to32Bits(endian: Endian.little))));
 
       SignedHash sh = SignedHash.fromDER(hash, sig);
@@ -89,8 +84,8 @@ void main() {
       print("result: $result");
 
       expect(trx.toUint8List.toHex, trxStr);
-    });
+      });
 
-  });
+    });
 
 }

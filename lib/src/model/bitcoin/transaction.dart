@@ -26,13 +26,25 @@ class Transaction {
         nLockTime: nLockTime ??= this.nLockTime
       );
 
-  Transaction copyWithClearSigScriptAt({List<int>? indices}) {
-    if(indices == null) {
+  Transaction copyWithEmptyInputScripts() {
+    final List<TransactionInput> newInputs = [];
+    for(final input in inputs) {
+      newInputs.add(input.copyWithEmptyScript());
+    }
+    return copyWith(inputs: newInputs);
+  }
+
+  Transaction copyWithSigScriptAt({Map<int, Uint8List>? data}) {
+    if(data == null) {
       return copyWith();
     } else {
       List<TransactionInput> inputs = [];
       for(int i=0; i < this.inputs.length; i++) {
-        final txIn = (indices.contains(i)) ? this.inputs[i].copyWithEmptyScript() : this.inputs[i].copyWith();
+        var txIn = (data.keys.contains(i)) ? this.inputs[i].copyWithEmptyScript() : this.inputs[i].copyWith();
+        final targetScript = data[i];
+        if(targetScript != null) {
+          txIn = txIn.copyWith(scriptSig: targetScript);
+        }
         inputs.add(txIn);
       }
       return copyWith(inputs: inputs);

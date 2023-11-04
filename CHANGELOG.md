@@ -21,3 +21,4 @@
   - script reader
   - script expression
   - adding all the necessary OP_XX
+  - transaction converter
